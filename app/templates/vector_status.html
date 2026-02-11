@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vector Database Status - DocEX</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status-healthy { color: green; }
+        .status-unhealthy { color: red; }
+        .config-table { border-collapse: collapse; width: 100%; }
+        .config-table th, .config-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .config-table th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Vector Database Status</h1>
+    
+    <h2>Health Check</h2>
+    <p>Status: <span class="status-{{ health.status }}">{{ health.status|upper }}</span></p>
+    
+    {% if health.status == 'healthy' %}
+        <p>Collections: {{ health.collections_count }}</p>
+        <p>Embedding Model: {{ health.embedding_model }}</p>
+    {% else %}
+        <p>Error: {{ health.error }}</p>
+    {% endif %}
+    
+    <h2>Configuration</h2>
+    <table class="config-table">
+        <tr><th>Setting</th><th>Value</th></tr>
+        {% for key, value in config.items() %}
+        <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+        {% endfor %}
+    </table>
+    
+    <h2>Actions</h2>
+    <a href="{{ url_for('vector.setup_vector_database') }}">Setup Collections</a> |
+    <a href="{{ url_for('vector.embed_existing_documents') }}">Process Existing Documents</a> |
+    <a href="{{ url_for('main.root') }}">Back to Main</a>
+    
+</body>
+</html>

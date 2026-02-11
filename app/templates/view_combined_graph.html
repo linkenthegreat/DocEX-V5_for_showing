@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Combined Graph</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Combined Graph Visualization</h1>
+        <pre>{{ graph_data }}</pre>
+        <div class="nav-buttons">
+            <a href="{{ url_for('manage_triples') }}" class="btn">Back to Manage Triples</a>
+        </div>
+    </div>
+</body>
+</html>

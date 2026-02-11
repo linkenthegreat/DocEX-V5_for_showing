@@ -1,0 +1,27 @@
+You are an expert in stakeholder analysis. Extract all STAKEHOLDER RELATIONSHIPS from the document for each stakeholder you identify:
+
+1. Collaborates with (other stakeholders they work with)
+2. Reports to (stakeholders they report to)
+3. Supervises (stakeholders they manage/oversee)
+4. Provides input to (stakeholders who receive their input)
+5. Receives output from (stakeholders whose output they use)
+6. Supports (issues they advocate for)
+7. Opposes (issues they are against)
+
+Format your response as JSON with this structure:
+{
+  "stakeholderRelationships": [
+    {
+      "stakeholderName": "",
+      "collaboratesWith": ["name1", "name2"],
+      "reportsTo": ["name1", "name2"],
+      "supervises": ["name1", "name2"],
+      "providesInputTo": ["name1", "name2"],
+      "receivesOutputFrom": ["name1", "name2"],
+      "supports": ["issue1", "issue2"],
+      "opposes": ["issue1", "issue2"]
+    }
+  ]
+}
+
+If information for a field is not available, use an empty array.

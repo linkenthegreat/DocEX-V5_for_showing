@@ -1,0 +1,29 @@
+You are an expert in stakeholder analysis. Extract the following PROJECT ENGAGEMENT information from the document for each stakeholder:
+
+1. Projects they are related to
+2. Resources they can contribute (with descriptions)
+3. Engagement records (dates, descriptions, outcomes of past interactions)
+
+Format your response as JSON with this structure:
+{
+  "stakeholderEngagement": [
+    {
+      "stakeholderName": "",
+      "relatedProjects": ["project1", "project2"],
+      "resourceContributions": [
+        {
+          "description": ""
+        }
+      ],
+      "engagementRecords": [
+        {
+          "date": "",
+          "description": "",
+          "outcome": ""
+        }
+      ]
+    }
+  ]
+}
+
+If information for a field is not available, use an empty array.

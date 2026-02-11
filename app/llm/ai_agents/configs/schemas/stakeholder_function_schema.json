@@ -1,0 +1,41 @@
+{
+  "name": "extract_stakeholders",
+  "description": "Extract stakeholders from document content",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "stakeholders": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "stakeholder_type": {
+              "type": "string",
+              "enum": ["INDIVIDUAL", "GROUP", "ORGANIZATIONAL"]
+            },
+            "role": {
+              "type": "string"
+            },
+            "confidence_score": {
+              "type": "number",
+              "minimum": 0.3,
+              "maximum": 1.0
+            }
+          },
+          "required": ["name", "stakeholder_type", "confidence_score"],
+          "additionalProperties": false
+        }
+      },
+      "extraction_confidence": {
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+      }
+    },
+    "required": ["stakeholders", "extraction_confidence"],
+    "additionalProperties": false
+  }
+}

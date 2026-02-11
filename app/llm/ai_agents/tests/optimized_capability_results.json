@@ -1,0 +1,296 @@
+{
+  "results": {
+    "gpt4o": {
+      "success": true,
+      "model": "gpt-4o",
+      "method": "structured_json",
+      "stakeholder_count": 14,
+      "json_ld_compliant": true,
+      "response": {
+        "@context": {
+          "@vocab": "https://docex.org/vocab/"
+        },
+        "@type": "StakeholderExtraction",
+        "extractionMetadata": {
+          "@type": "ExtractionMetadata",
+          "extractionConfidence": 0.95,
+          "extractorModel": "ndis-stakeholder-extractor-v1"
+        },
+        "stakeholders": [
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:department-social-services",
+            "name": "Department of Social Services",
+            "role": "Lead agency",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.98
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:ndis-quality-safeguards-commission",
+            "name": "NDIS Quality and Safeguards Commission",
+            "role": "Regulatory body",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.97
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:prof-david-chen",
+            "name": "Prof. David Chen",
+            "role": "Commissioner",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:minister-amanda-foster",
+            "name": "Minister Amanda Foster",
+            "role": "Minister",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:australian-disability-enterprise-network",
+            "name": "Australian Disability Enterprise Network",
+            "role": "Industry representative",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:enableme-services",
+            "name": "EnableMe Services",
+            "role": "Industry representative",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:michael-obrien",
+            "name": "Michael O'Brien",
+            "role": "CEO of EnableMe Services",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.94
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:disability-advocacy-network-australia",
+            "name": "Disability Advocacy Network Australia",
+            "role": "Community representative",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:sarah-mitchell",
+            "name": "Sarah Mitchell",
+            "role": "President of Disability Advocacy Network Australia",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.94
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:participant-advisory-committee",
+            "name": "Participant Advisory Committee",
+            "role": "Community representative",
+            "stakeholderType": "GROUP",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:james-rodriguez",
+            "name": "James Rodriguez",
+            "role": "Co-chair of Participant Advisory Committee",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.94
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:maria-gonzalez",
+            "name": "Maria Gonzalez",
+            "role": "Co-chair of Participant Advisory Committee",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.94
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:university-sydney-disability-research-institute",
+            "name": "University of Sydney Disability Research Institute",
+            "role": "Research organization",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:dr-patricia-lee",
+            "name": "Dr. Patricia Lee",
+            "role": "Researcher at University of Sydney Disability Research Institute",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.94
+          }
+        ]
+      }
+    },
+    "deepseek": {
+      "success": true,
+      "model": "deepseek/DeepSeek-V3-0324",
+      "method": "json_mode",
+      "stakeholder_count": 14,
+      "json_ld_compliant": true,
+      "response": {
+        "@context": {
+          "@vocab": "https://docex.org/vocab/"
+        },
+        "@type": "StakeholderExtraction",
+        "extractionMetadata": {
+          "@type": "ExtractionMetadata",
+          "extractionConfidence": 0.95,
+          "extractorModel": "stakeholder-extractor-v1.0"
+        },
+        "stakeholders": [
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:department-of-social-services",
+            "name": "Department of Social Services",
+            "role": "Lead agency",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.98
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:ndis-commission",
+            "name": "NDIS Quality and Safeguards Commission",
+            "role": "Regulatory body",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.98
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:david-chen",
+            "name": "Prof. David Chen",
+            "role": "Commissioner",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.97
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:amanda-foster",
+            "name": "Amanda Foster",
+            "role": "Minister",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.97
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:australian-disability-enterprise",
+            "name": "Australian Disability Enterprise Network",
+            "role": "Industry representative",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:enableme-services",
+            "name": "EnableMe Services",
+            "role": "Service provider",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:michael-obrien",
+            "name": "Michael O'Brien",
+            "role": "CEO of EnableMe Services",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:disability-advocacy-network",
+            "name": "Disability Advocacy Network Australia",
+            "role": "Advocacy group",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:sarah-mitchell",
+            "name": "Sarah Mitchell",
+            "role": "President of Disability Advocacy Network Australia",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.96
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:participant-advisory-committee",
+            "name": "Participant Advisory Committee",
+            "role": "Advisory body",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:james-rodriguez",
+            "name": "James Rodriguez",
+            "role": "Co-chair of Participant Advisory Committee",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:maria-gonzalez",
+            "name": "Maria Gonzalez",
+            "role": "Co-chair of Participant Advisory Committee",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:university-sydney-research",
+            "name": "University of Sydney Disability Research Institute",
+            "role": "Research institution",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:patricia-lee",
+            "name": "Dr. Patricia Lee",
+            "role": "Researcher",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.95
+          }
+        ]
+      }
+    },
+    "llama31": {
+      "success": false,
+      "model": "llama3.1:8b-instruct-q8_0",
+      "error": "'LLMClient' object has no attribute 'call_ollama'"
+    }
+  },
+  "report": {
+    "test_summary": {
+      "total_models": 3,
+      "successful_models": 2,
+      "success_rate": 0.6666666666666666
+    },
+    "model_comparison": {
+      "gpt4o": {
+        "stakeholders_extracted": 14,
+        "json_ld_compliant": true,
+        "method": "structured_json"
+      },
+      "deepseek": {
+        "stakeholders_extracted": 14,
+        "json_ld_compliant": true,
+        "method": "json_mode"
+      }
+    },
+    "recommendations": {
+      "production": "Use DeepSeek for cost, GPT-4o for quality",
+      "privacy": "No local model available - use cloud with caution"
+    }
+  }
+}

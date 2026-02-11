@@ -1,0 +1,171 @@
+{
+  "summary": {
+    "total_tests": 4,
+    "successful_tests": 3,
+    "success_rate": 0.75,
+    "overall_success": true
+  },
+  "test_results": {
+    "basic_json_mode": {
+      "test": "basic_json_mode",
+      "success": true,
+      "raw_response": {
+        "stakeholders": [
+          {
+            "name": "John Smith",
+            "role": "Project Manager",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Sarah Johnson",
+            "role": "Leader of Development Team",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Development Team",
+            "role": "Technical Implementation",
+            "stakeholder_type": "GROUP",
+            "confidence_score": 0.8
+          },
+          {
+            "name": "NDIS Quality and Safeguards Commission",
+            "role": "Regulatory Oversight",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "confidence_score": 0.95
+          }
+        ],
+        "extraction_confidence": 0.9
+      },
+      "parsed_response": {
+        "stakeholders": [
+          {
+            "name": "John Smith",
+            "role": "Project Manager",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Sarah Johnson",
+            "role": "Leader of Development Team",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Development Team",
+            "role": "Technical Implementation",
+            "stakeholder_type": "GROUP",
+            "confidence_score": 0.8
+          },
+          {
+            "name": "NDIS Quality and Safeguards Commission",
+            "role": "Regulatory Oversight",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "confidence_score": 0.95
+          }
+        ],
+        "extraction_confidence": 0.9
+      },
+      "validation": {
+        "has_stakeholders": true,
+        "has_extraction_confidence": true,
+        "stakeholders_is_list": true,
+        "extraction_confidence_valid": true,
+        "stakeholder_count": 4,
+        "stakeholder_has_name": true,
+        "stakeholder_has_type": true,
+        "stakeholder_has_confidence": true,
+        "overall_valid": true
+      }
+    },
+    "structured_prompting": {
+      "test": "structured_prompting",
+      "success": true,
+      "parsed_response": {
+        "stakeholders": [
+          {
+            "name": "Department of Social Services",
+            "role": "oversees the program",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Anne Ruston",
+            "role": "Minister with final authority",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Lisa Chen",
+            "role": "Regional coordinator for Victoria",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.8
+          },
+          {
+            "name": "Mark Thompson",
+            "role": "Regional coordinator for NSW",
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.8
+          },
+          {
+            "name": "Queensland Disability Network",
+            "role": "collaborates on service delivery",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "confidence_score": 0.8
+          },
+          {
+            "name": "Participants and their families",
+            "role": "primary beneficiaries",
+            "stakeholder_type": "GROUP",
+            "confidence_score": 0.9
+          },
+          {
+            "name": "Disability Advocacy Network Australia",
+            "role": "represents participants and their families",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "confidence_score": 0.8
+          }
+        ],
+        "extraction_confidence": 0.9
+      },
+      "validation_details": {
+        "valid": true,
+        "violations": []
+      }
+    },
+    "edge_case_handling": {
+      "test": "edge_case_handling",
+      "success": true,
+      "parsed_response": {
+        "stakeholders": [
+          {
+            "name": "Jennifer",
+            "role": null,
+            "stakeholder_type": "INDIVIDUAL",
+            "confidence_score": 0.7
+          },
+          {
+            "name": "the team",
+            "role": null,
+            "stakeholder_type": "GROUP",
+            "confidence_score": 0.5
+          }
+        ],
+        "extraction_confidence": 0.6
+      },
+      "edge_case_validation": {
+        "extracted_from_minimal": true,
+        "appropriate_confidence": true,
+        "no_hallucination": true,
+        "reasonable_extraction": true
+      }
+    },
+    "comparison_with_gpt4o": {
+      "test": "comparison_with_gpt4o",
+      "success": false,
+      "error": "'str' object has no attribute 'get'"
+    }
+  },
+  "timestamp": "2025-01-08T10:00:00Z"
+}

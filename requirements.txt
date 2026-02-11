@@ -1,0 +1,36 @@
+# requirements.txt
+# Update these versions
+flask==2.3.3
+werkzeug==2.3.7
+
+# Keep your other dependencies
+rdflib==6.3.2
+python-dotenv==0.19.0
+torch==2.5.1
+transformers==4.46.1
+
+# LLM and Document Processing
+azure-ai-inference>=1.0.0b1  # For GitHub Models API
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-anthropic>=0.0.5
+langchain-openai>=0.0.5  # Add this specifically for OpenAI/GitHub integration
+langchain-ollama>=0.0.3
+pydantic>=2.0.0
+pymupdf>=1.23.0
+python-docx>=0.8.11
+requests>=2.31.0
+
+# Vector Storage
+qdrant-client>=1.7.0
+sentence-transformers>=2.2.2
+httpx>=0.25.0
+numpy>=2.3.0
+
+# Phase 1 - Dual Storage Dependencies
+openai>=1.0.0          # For structured output
+instructor>=0.4.0      # For Ollama structured output (optional)
+pyld>=2.0.3           # JSON-LD processing and context manipulation
+dataclasses-json>=0.6.0  # Enhanced dataclass serialization
+jsonschema>=4.17.0       # JSON schema validation
+

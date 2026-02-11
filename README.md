@@ -69,3 +69,6 @@ Enhanced LLM Extraction → Human Review → Final Knowledge Graph
 ```
 
 This represents a significant evolution from basic document processing to intelligent, context-aware semantic analysis.
+
+### talk to the graph
+Please refer to \app\talk_to_graph\demo\README.md

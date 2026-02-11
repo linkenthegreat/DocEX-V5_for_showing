@@ -1,0 +1,247 @@
+{
+  "@context": {
+    "docex": "http://example.org/docex/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "content": "http://www.w3.org/2011/content#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@graph": [
+    {
+      "@id": "docex:Document",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document",
+      "rdfs:comment": "A document resource representing a file with structured text content."
+    },
+    {
+      "@id": "docex:File",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": "docex:Document",
+      "rdfs:label": "File",
+      "rdfs:comment": "A file on the filesystem that contains document content."
+    },
+    {
+      "@id": "docex:DocumentSection",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Section",
+      "rdfs:comment": "A logical section or chapter within a document."
+    },
+    {
+      "@id": "docex:DocumentPage",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Page",
+      "rdfs:comment": "A physical page within a document."
+    },
+    {
+      "@id": "docex:DocumentParagraph",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Paragraph",
+      "rdfs:comment": "A paragraph or text block within a document."
+    },
+    {
+      "@id": "docex:DocumentSentence",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Sentence",
+      "rdfs:comment": "A sentence within a document paragraph."
+    },
+    {
+      "@id": "docex:Image",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Image",
+      "rdfs:comment": "An embedded picture, chart, or figure within the document."
+    },
+    {
+      "@id": "docex:Table",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Table",
+      "rdfs:comment": "A structured table within the document containing data."
+    },
+    {
+      "@id": "docex:ExtractionResult",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Extraction Result",
+      "rdfs:comment": "Result of LLM extraction from document content."
+    },
+    {
+      "@id": "docex:DocumentReference",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Document Reference",
+      "rdfs:comment": "Specific location reference within a source document for extraction provenance."
+    },
+    {
+      "@id": "docex:UserAnnotation",
+      "@type": "rdfs:Class",
+      "rdfs:label": "User Annotation",
+      "rdfs:comment": "Human annotation or validation of extraction results."
+    },
+    {
+      "@id": "docex:hasSection",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "docex:DocumentSection",
+      "rdfs:label": "Has Section",
+      "rdfs:comment": "Relates a document to its logical sections."
+    },
+    {
+      "@id": "docex:hasPage",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "docex:DocumentPage",
+      "rdfs:label": "Has Page",
+      "rdfs:comment": "Relates a document to its pages."
+    },
+    {
+      "@id": "docex:hasParagraph",
+      "@type": "rdf:Property",
+      "rdfs:domain": ["docex:Document", "docex:DocumentSection", "docex:DocumentPage"],
+      "rdfs:range": "docex:DocumentParagraph",
+      "rdfs:label": "Has Paragraph",
+      "rdfs:comment": "Relates a document structure to its paragraphs."
+    },
+    {
+      "@id": "docex:hasSentence",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:DocumentParagraph",
+      "rdfs:range": "docex:DocumentSentence",
+      "rdfs:label": "Has Sentence",
+      "rdfs:comment": "Relates a paragraph to its sentences."
+    },
+    {
+      "@id": "docex:hasImage",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "docex:Image",
+      "rdfs:label": "Has Image",
+      "rdfs:comment": "Relates a document to its embedded images."
+    },
+    {
+      "@id": "docex:hasTable",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "docex:Table",
+      "rdfs:label": "Has Table",
+      "rdfs:comment": "Relates a document to its structured tables."
+    },
+    {
+      "@id": "docex:hasExtraction",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "docex:ExtractionResult",
+      "rdfs:label": "Has Extraction",
+      "rdfs:comment": "Links a document to its LLM extraction results."
+    },
+    {
+      "@id": "docex:referencesText",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:ExtractionResult",
+      "rdfs:range": "docex:DocumentReference",
+      "rdfs:label": "References Text",
+      "rdfs:comment": "Links extraction result to specific document location."
+    },
+    {
+      "@id": "docex:hasUserAnnotation",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:ExtractionResult",
+      "rdfs:range": "docex:UserAnnotation",
+      "rdfs:label": "Has User Annotation",
+      "rdfs:comment": "Links extraction result to user validation/comments."
+    },
+    {
+      "@id": "docex:textContent",
+      "@type": "rdf:Property",
+      "rdfs:domain": ["docex:DocumentParagraph", "docex:DocumentSentence"],
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "Text Content",
+      "rdfs:comment": "The actual text content of a document element."
+    },
+    {
+      "@id": "docex:pageNumber",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:DocumentPage",
+      "rdfs:range": "xsd:integer",
+      "rdfs:label": "Page Number",
+      "rdfs:comment": "The page number within the document."
+    },
+    {
+      "@id": "docex:startPosition",
+      "@type": "rdf:Property",
+      "rdfs:domain": ["docex:DocumentReference", "docex:DocumentSentence"],
+      "rdfs:range": "xsd:integer",
+      "rdfs:label": "Start Position",
+      "rdfs:comment": "Character start position in document."
+    },
+    {
+      "@id": "docex:endPosition",
+      "@type": "rdf:Property",
+      "rdfs:domain": ["docex:DocumentReference", "docex:DocumentSentence"],
+      "rdfs:range": "xsd:integer",
+      "rdfs:label": "End Position",
+      "rdfs:comment": "Character end position in document."
+    },
+    {
+      "@id": "docex:confidenceScore",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:ExtractionResult",
+      "rdfs:range": "xsd:decimal",
+      "rdfs:label": "Confidence Score",
+      "rdfs:comment": "LLM confidence score for extraction result (0.0-1.0)."
+    },
+    {
+      "@id": "docex:extractionMethod",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:ExtractionResult",
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "Extraction Method",
+      "rdfs:comment": "The LLM model/method used for extraction (e.g., 'ollama-llama3.1', 'github-gpt-4')."
+    },
+    {
+      "@id": "docex:userComment",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:UserAnnotation",
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "User Comment",
+      "rdfs:comment": "Human comment or correction on extraction result."
+    },
+    {
+      "@id": "docex:isValidated",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:UserAnnotation",
+      "rdfs:range": "xsd:boolean",
+      "rdfs:label": "Is Validated",
+      "rdfs:comment": "Whether the user has validated this extraction."
+    },
+    {
+      "@id": "dcterms:created",
+      "@type": "rdf:Property",
+      "rdfs:domain": ["docex:Document", "docex:ExtractionResult", "docex:UserAnnotation"],
+      "rdfs:label": "Created",
+      "rdfs:comment": "Date and time when the resource was created."
+    },
+    {
+      "@id": "dcterms:title",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "Title",
+      "rdfs:comment": "The title of the document."
+    },
+    {
+      "@id": "dcterms:format",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "Format",
+      "rdfs:comment": "Document format (e.g., PDF, DOCX, TXT)."
+    },
+    {
+      "@id": "dcterms:extent",
+      "@type": "rdf:Property",
+      "rdfs:domain": "docex:Document",
+      "rdfs:range": "xsd:string",
+      "rdfs:label": "Extent",
+      "rdfs:comment": "Document size/length information."
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "@context": {
+    "@vocab": "http://www.example.org/stakeholder-ontology#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "owl": "http://www.w3.org/2002/07/owl#"
+  },
+  "@id": "http://www.example.org/stakeholder-ontology",
+  "@type": "owl:Ontology",
+  "rdfs:label": "Stakeholder Engagement Ontology",
+  "rdfs:comment": "An ontology for representing stakeholders and their relationships in project contexts",
+  "classes": [
+    {
+      "@id": "StakeholderEntity",
+      "@type": "owl:Class",
+      "rdfs:label": "Stakeholder Entity",
+      "rdfs:comment": "Represents any person, group, or organization that has interest in or influence over a project or initiative"
+    },
+    {
+      "@id": "IndividualStakeholder",
+      "@type": "owl:Class",
+      "rdfs:label": "Individual Stakeholder",
+      "rdfs:comment": "Represents a single person who is a stakeholder",
+      "rdfs:subClassOf": "StakeholderEntity"
+    },
+    {
+      "@id": "GroupStakeholder",
+      "@type": "owl:Class",
+      "rdfs:label": "Group Stakeholder",
+      "rdfs:comment": "Represents a collection of individuals who form a stakeholder group",
+      "rdfs:subClassOf": "StakeholderEntity"
+    },
+    {
+      "@id": "OrganizationalStakeholder",
+      "@type": "owl:Class",
+      "rdfs:label": "Organizational Stakeholder",
+      "rdfs:comment": "Represents an organization that is a stakeholder",
+      "rdfs:subClassOf": "StakeholderEntity"
+    },
+    {
+      "@id": "Issue",
+      "@type": "owl:Class",
+      "rdfs:label": "Issue",
+      "rdfs:comment": "Represents a specific concern, topic, or problem relevant to stakeholders"
+    },
+    {
+      "@id": "InfluenceLevel",
+      "@type": "owl:Class",
+      "rdfs:label": "Influence Level",
+      "rdfs:comment": "Represents the degree of influence a stakeholder has"
+    },
+    {
+      "@id": "InterestLevel",
+      "@type": "owl:Class",
+      "rdfs:label": "Interest Level",
+      "rdfs:comment": "Represents the degree of interest a stakeholder has"
+    },
+    {
+      "@id": "EngagementRecord",
+      "@type": "owl:Class",
+      "rdfs:label": "Engagement Record",
+      "rdfs:comment": "Represents a specific instance of stakeholder engagement"
+    },
+    {
+      "@id": "CommunicationPreference",
+      "@type": "owl:Class",
+      "rdfs:label": "Communication Preference",
+      "rdfs:comment": "Represents the preference method of communication of the stakeholder"
+    },
+    {
+      "@id": "Concern",
+      "@type": "owl:Class",
+      "rdfs:label": "Concern",
+      "rdfs:comment": "Represents a specific issue or topic that is important to a stakeholder"
+    },
+    {
+      "@id": "ResourceContribution",
+      "@type": "owl:Class",
+      "rdfs:label": "Resource Contribution",
+      "rdfs:comment": "Represents resources a stakeholder can contribute to a project"
+    }
+  ]
+}

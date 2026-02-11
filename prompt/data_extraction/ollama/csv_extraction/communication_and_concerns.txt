@@ -1,0 +1,28 @@
+You are an expert in stakeholder analysis. Extract the following COMMUNICATION PREFERENCES and CONCERNS from the document for each stakeholder.
+
+Create TWO separate CSV tables:
+
+1. COMMUNICATION PREFERENCES CSV with headers:
+stakeholder_name,communication_preference
+
+2. STAKEHOLDER CONCERNS CSV with headers:
+stakeholder_name,concern_description,priority_level
+
+For communication preferences, use one row per preference type.
+For concerns, use one row per concern.
+Use priority levels 1-5 (where 5 is highest) or leave blank if unknown.
+
+Example for COMMUNICATION PREFERENCES:
+stakeholder_name,communication_preference
+"John Doe","Email"
+"John Doe","Face-to-face meetings"
+"Jane Smith","Video conference"
+
+Example for STAKEHOLDER CONCERNS:
+stakeholder_name,concern_description,priority_level
+"John Doe","Budget constraints",5
+"John Doe","Timeline feasibility",4
+"Jane Smith","Environmental impact",5
+"Jane Smith","Staffing needs",3
+
+Format each CSV section with clear separators. Use empty priority_level for unknown priorities. Do not include additional explanations outside the CSV format.

@@ -1,0 +1,495 @@
+# filepath: c:\DocEX_Project\v5_testing\app\llm\ai_agents\configs\test_agents.yaml
+# DocEX Agent Configuration Tests
+# Version: 1.0.0
+# Date: 2025-01-08
+
+test_suite:
+  name: "DocEX Agent Configuration Tests"
+  version: "1.0.0"
+  description: "Comprehensive tests for agent configuration validation"
+
+# Structure validation tests
+structure_tests:
+  yaml_structure:
+    test_name: "YAML Structure Validation"
+    description: "Validate basic YAML structure and required sections"
+    tests:
+      - name: "agents_section_exists"
+        type: "section_exists"
+        path: "agents"
+        expected: true
+        
+      - name: "global_config_section_exists"
+        type: "section_exists"
+        path: "global_config"
+        expected: true
+        
+      - name: "data_extraction_agent_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent"
+        expected: true
+
+  agent_basic_structure:
+    test_name: "Agent Basic Structure"
+    description: "Validate data extraction agent has required fields"
+    tests:
+      - name: "agent_has_name"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.name"
+        expected: true
+        
+      - name: "agent_has_version"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.version"
+        expected: true
+        
+      - name: "agent_has_purpose"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.purpose"
+        expected: true
+        
+      - name: "agent_has_model_capabilities"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.model_capabilities"
+        expected: true
+        
+      - name: "agent_has_model_strategies"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.model_strategies"
+        expected: true
+
+# Model capability tests
+model_capability_tests:
+  capability_categories:
+    test_name: "Model Capability Categories"
+    description: "Validate all expected capability categories exist"
+    tests:
+      - name: "structured_output_native_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_capabilities.structured_output_native"
+        expected: true
+        
+      - name: "json_mode_supported_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_capabilities.json_mode_supported"
+        expected: true
+        
+      - name: "ollama_structured_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_capabilities.ollama_structured"
+        expected: true
+        
+      - name: "legacy_prompting_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_capabilities.legacy_prompting"
+        expected: true
+
+  capability_structure:
+    test_name: "Capability Structure Validation"
+    description: "Validate each capability has required fields"
+    tests:
+      - name: "structured_output_has_models"
+        type: "field_type"
+        path: "agents.data_extraction_agent.model_capabilities.structured_output_native.models"
+        expected_type: "array"
+        
+      - name: "structured_output_has_features"
+        type: "field_type"
+        path: "agents.data_extraction_agent.model_capabilities.structured_output_native.features"
+        expected_type: "array"
+        
+      - name: "structured_output_has_success_rate"
+        type: "field_type"
+        path: "agents.data_extraction_agent.model_capabilities.structured_output_native.success_rate_target"
+        expected_type: "number"
+
+  model_assignments:
+    test_name: "Model Assignment Validation"
+    description: "Validate models are correctly assigned to capabilities"
+    tests:
+      - name: "gpt4o_in_structured_output"
+        type: "array_contains"
+        path: "agents.data_extraction_agent.model_capabilities.structured_output_native.models"
+        expected_value: "openai/gpt-4o"
+        
+      - name: "deepseek_in_json_mode"
+        type: "array_contains"
+        path: "agents.data_extraction_agent.model_capabilities.json_mode_supported.models"
+        expected_value: "deepseek/DeepSeek-V3-0324"
+        
+      - name: "llama_in_ollama_structured"
+        type: "array_contains"
+        path: "agents.data_extraction_agent.model_capabilities.ollama_structured.models"
+        expected_value: "llama3.1:8b-instruct-q8_0"
+
+# Strategy validation tests
+strategy_tests:
+  strategy_existence:
+    test_name: "Strategy Existence"
+    description: "Validate all expected strategies exist"
+    tests:
+      - name: "native_structured_strategy_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_strategies.native_structured"
+        expected: true
+        
+      - name: "json_mode_guided_strategy_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_strategies.json_mode_guided"
+        expected: true
+        
+      - name: "ollama_structured_strategy_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_strategies.ollama_structured"
+        expected: true
+        
+      - name: "guided_json_prompting_strategy_exists"
+        type: "section_exists"
+        path: "agents.data_extraction_agent.model_strategies.guided_json_prompting"
+        expected: true
+
+  strategy_structure:
+    test_name: "Strategy Structure Validation"
+    description: "Validate each strategy has required configuration"
+    tests:
+      - name: "native_structured_has_backend"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.backend"
+        expected: true
+        
+      - name: "native_structured_has_config"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.config"
+        expected: true
+        
+      - name: "native_structured_has_error_handling"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.error_handling"
+        expected: true
+
+  backend_configuration:
+    test_name: "Backend Configuration"
+    description: "Validate backend modules and classes are properly specified"
+    tests:
+      - name: "native_structured_backend_module"
+        type: "field_value"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.backend.module"
+        expected_value: "app.llm.github_models_processor"
+        
+      - name: "ollama_structured_backend_module"
+        type: "field_value"
+        path: "agents.data_extraction_agent.model_strategies.ollama_structured.backend.module"
+        expected_value: "app.llm.llm_client"
+        
+      - name: "json_mode_guided_method"
+        type: "field_value"
+        path: "agents.data_extraction_agent.model_strategies.json_mode_guided.backend.method"
+        expected_value: "json_mode_prompting"
+
+# Configuration parameter tests
+config_parameter_tests:
+  temperature_validation:
+    test_name: "Temperature Parameter Validation"
+    description: "Validate temperature parameters are within valid ranges"
+    tests:
+      - name: "native_structured_temperature_valid"
+        type: "numeric_range"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.config.temperature"
+        min_value: 0.0
+        max_value: 2.0
+        
+      - name: "json_mode_guided_temperature_valid"
+        type: "numeric_range"
+        path: "agents.data_extraction_agent.model_strategies.json_mode_guided.config.temperature"
+        min_value: 0.0
+        max_value: 2.0
+
+  token_limits:
+    test_name: "Token Limit Validation"
+    description: "Validate max_tokens parameters are reasonable"
+    tests:
+      - name: "native_structured_max_tokens"
+        type: "numeric_range"
+        path: "agents.data_extraction_agent.model_strategies.native_structured.config.max_tokens"
+        min_value: 100
+        max_value: 10000
+        
+      - name: "json_mode_guided_max_tokens"
+        type: "numeric_range"
+        path: "agents.data_extraction_agent.model_strategies.json_mode_guided.config.max_tokens"
+        min_value: 100
+        max_value: 10000
+
+# Strategy selection tests
+strategy_selection_tests:
+  auto_selection:
+    test_name: "Auto Selection Configuration"
+    description: "Validate automatic strategy selection is properly configured"
+    tests:
+      - name: "auto_select_enabled"
+        type: "field_value"
+        path: "agents.data_extraction_agent.strategy_selection.auto_select"
+        expected_value: true
+        
+      - name: "selection_criteria_exists"
+        type: "field_type"
+        path: "agents.data_extraction_agent.strategy_selection.selection_criteria"
+        expected_type: "array"
+        
+      - name: "fallback_chain_exists"
+        type: "field_type"
+        path: "agents.data_extraction_agent.strategy_selection.fallback_chain"
+        expected_type: "array"
+
+  fallback_chain_order:
+    test_name: "Fallback Chain Order"
+    description: "Validate fallback chain has correct strategy order"
+    tests:
+      - name: "fallback_chain_length"
+        type: "array_length"
+        path: "agents.data_extraction_agent.strategy_selection.fallback_chain"
+        expected_length: 4
+        
+      - name: "native_structured_first"
+        type: "array_index_value"
+        path: "agents.data_extraction_agent.strategy_selection.fallback_chain"
+        index: 0
+        expected_value: "native_structured"
+        
+      - name: "guided_json_prompting_last"
+        type: "array_index_value"
+        path: "agents.data_extraction_agent.strategy_selection.fallback_chain"
+        index: 3
+        expected_value: "guided_json_prompting"
+
+  model_selection:
+    test_name: "Auto Model Selection"
+    description: "Validate auto model selection has all priority types"
+    tests:
+      - name: "quality_priority_set"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.strategy_selection.auto_model_selection.quality_priority"
+        expected: true
+        
+      - name: "cost_priority_set"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.strategy_selection.auto_model_selection.cost_priority"
+        expected: true
+        
+      - name: "speed_priority_set"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.strategy_selection.auto_model_selection.speed_priority"
+        expected: true
+        
+      - name: "privacy_priority_set"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.strategy_selection.auto_model_selection.privacy_priority"
+        expected: true
+        
+      - name: "default_model_set"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.strategy_selection.auto_model_selection.default"
+        expected: true
+
+# Output format tests
+output_format_tests:
+  schema_structure:
+    test_name: "Output Schema Structure"
+    description: "Validate output format schema is complete"
+    tests:
+      - name: "standard_schema_exists"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.output_format.standard_schema"
+        expected: true
+        
+      - name: "stakeholders_schema_exists"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.output_format.standard_schema.stakeholders"
+        expected: true
+        
+      - name: "metadata_schema_exists"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.output_format.standard_schema.metadata"
+        expected: true
+
+  stakeholder_fields:
+    test_name: "Stakeholder Field Validation"
+    description: "Validate stakeholder schema has all required fields"
+    tests:
+      - name: "stakeholders_is_array"
+        type: "field_value"
+        path: "agents.data_extraction_agent.output_format.standard_schema.stakeholders.type"
+        expected_value: "array"
+        
+      - name: "stakeholder_items_defined"
+        type: "field_exists"
+        path: "agents.data_extraction_agent.output_format.standard_schema.stakeholders.items"
+        expected: true
+        
+      - name: "name_field_required"
+        type: "field_value"
+        path: "agents.data_extraction_agent.output_format.standard_schema.stakeholders.items.name"
+        expected_value: "string"
+        
+      - name: "confidence_score_is_number"
+        type: "field_value"
+        path: "agents.data_extraction_agent.output_format.standard_schema.stakeholders.items.confidence_score"
+        expected_value: "number"
+
+# Global configuration tests
+global_config_tests:
+  basic_config:
+    test_name: "Basic Global Configuration"
+    description: "Validate global configuration parameters"
+    tests:
+      - name: "version_set"
+        type: "field_exists"
+        path: "global_config.version"
+        expected: true
+        
+      - name: "default_agent_set"
+        type: "field_value"
+        path: "global_config.default_agent"
+        expected_value: "data_extraction_agent"
+        
+      - name: "logging_config_exists"
+        type: "field_exists"
+        path: "global_config.logging"
+        expected: true
+
+  error_handling_config:
+    test_name: "Error Handling Configuration"
+    description: "Validate error handling parameters"
+    tests:
+      - name: "max_retries_reasonable"
+        type: "numeric_range"
+        path: "global_config.error_handling.max_retries"
+        min_value: 1
+        max_value: 10
+        
+      - name: "timeout_reasonable"
+        type: "numeric_range"
+        path: "global_config.error_handling.timeout_seconds"
+        min_value: 5
+        max_value: 300
+        
+      - name: "fallbacks_enabled"
+        type: "field_value"
+        path: "global_config.error_handling.enable_fallbacks"
+        expected_value: true
+
+  monitoring_config:
+    test_name: "Monitoring Configuration"
+    description: "Validate monitoring settings"
+    tests:
+      - name: "track_success_rates_enabled"
+        type: "field_value"
+        path: "global_config.monitoring.track_success_rates"
+        expected_value: true
+        
+      - name: "track_processing_times_enabled"
+        type: "field_value"
+        path: "global_config.monitoring.track_processing_times"
+        expected_value: true
+        
+      - name: "track_costs_enabled"
+        type: "field_value"
+        path: "global_config.monitoring.track_costs"
+        expected_value: true
+
+# Integration tests
+integration_tests:
+  strategy_model_alignment:
+    test_name: "Strategy-Model Alignment"
+    description: "Validate strategies align with model capabilities"
+    tests:
+      - name: "native_structured_models_supported"
+        type: "custom"
+        description: "Check that native_structured strategy models are in structured_output_native capability"
+        validation_logic: |
+          strategy_models = get_path("agents.data_extraction_agent.model_strategies.native_structured.applicable_models")
+          capability_models = get_path("agents.data_extraction_agent.model_capabilities.structured_output_native.models")
+          return all(model in capability_models for model in strategy_models)
+        
+      - name: "json_mode_models_supported"
+        type: "custom"
+        description: "Check that json_mode_guided strategy models are in json_mode_supported capability"
+        validation_logic: |
+          strategy_models = get_path("agents.data_extraction_agent.model_strategies.json_mode_guided.applicable_models")
+          capability_models = get_path("agents.data_extraction_agent.model_capabilities.json_mode_supported.models")
+          return all(model in capability_models for model in strategy_models)
+
+  success_rate_hierarchy:
+    test_name: "Success Rate Hierarchy"
+    description: "Validate success rates follow expected hierarchy"
+    tests:
+      - name: "native_structured_highest_rate"
+        type: "custom"
+        description: "Native structured should have highest success rate"
+        validation_logic: |
+          native_rate = get_path("agents.data_extraction_agent.model_capabilities.structured_output_native.success_rate_target")
+          json_rate = get_path("agents.data_extraction_agent.model_capabilities.json_mode_supported.success_rate_target")
+          ollama_rate = get_path("agents.data_extraction_agent.model_capabilities.ollama_structured.success_rate_target")
+          legacy_rate = get_path("agents.data_extraction_agent.model_capabilities.legacy_prompting.success_rate_target")
+          return native_rate >= json_rate >= ollama_rate >= legacy_rate
+
+# Performance tests
+performance_tests:
+  configuration_completeness:
+    test_name: "Configuration Completeness"
+    description: "Validate all strategies have complete configuration"
+    tests:
+      - name: "all_strategies_have_retry_attempts"
+        type: "custom"
+        description: "All strategies should have retry configuration"
+        validation_logic: |
+          strategies = get_path("agents.data_extraction_agent.model_strategies")
+          for strategy_name, strategy_config in strategies.items():
+            if "error_handling" not in strategy_config:
+              return False
+            if "retry_attempts" not in strategy_config["error_handling"]:
+              return False
+          return True
+
+# Security tests
+security_tests:
+  privacy_considerations:
+    test_name: "Privacy Configuration"
+    description: "Validate privacy-focused configurations"
+    tests:
+      - name: "local_processing_identified"
+        type: "custom"
+        description: "Local processing models should be properly identified"
+        validation_logic: |
+          ollama_features = get_path("agents.data_extraction_agent.model_capabilities.ollama_structured.features")
+          return "local_processing" in ollama_features and "privacy_focused" in ollama_features
+
+# Test execution metadata
+test_metadata:
+  execution_order:
+    - "structure_tests"
+    - "model_capability_tests"
+    - "strategy_tests"
+    - "config_parameter_tests"
+    - "strategy_selection_tests"
+    - "output_format_tests"
+    - "global_config_tests"
+    - "integration_tests"
+    - "performance_tests"
+    - "security_tests"
+  
+  critical_tests:
+    - "yaml_structure"
+    - "agent_basic_structure"
+    - "strategy_existence"
+    - "fallback_chain_order"
+    - "schema_structure"
+  
+  performance_benchmarks:
+    max_test_execution_time: 30  # seconds
+    max_config_load_time: 5      # seconds
+    
+  reporting:
+    include_timing: true
+    include_coverage: true
+    export_formats: ["json", "yaml", "html"]

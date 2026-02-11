@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.example.org/stakeholder-ontology#"
+         xml:base="http://www.example.org/stakeholder-ontology"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:xml="http://www.w3.org/XML/1998/namespace"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <!-- Ontology Declaration -->
+  <owl:Ontology rdf:about="http://www.example.org/stakeholder-ontology">
+    <rdfs:label>Stakeholder Engagement Ontology</rdfs:label>
+    <rdfs:comment>An ontology for representing stakeholders and their relationships in project contexts</rdfs:comment>
+  </owl:Ontology>
+
+  <!-- Classes -->
+  <!-- Main Classes -->
+  <owl:Class rdf:about="#StakeholderEntity">
+    <rdfs:label>Stakeholder Entity</rdfs:label>
+    <rdfs:comment>Represents any person, group, or organization that has interest in or influence over a project or initiative</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Project">
+    <rdfs:label>Project</rdfs:label>
+    <rdfs:comment>Represents a project, initiative, or undertaking that involves stakeholders</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Issue">
+    <rdfs:label>Issue</rdfs:label>
+    <rdfs:comment>Represents a specific concern, topic, or problem relevant to stakeholders</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Organization">
+    <rdfs:label>Organization</rdfs:label>
+    <rdfs:comment>Represents a formal organization that a stakeholder may belong to</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EngagementRecord">
+    <rdfs:label>Engagement Record</rdfs:label>
+    <rdfs:comment>Represents a specific instance of stakeholder engagement</rdfs:comment>
+  </owl:Class>
+
+  <!-- Stakeholder Types -->
+  <owl:Class rdf:about="#IndividualStakeholder">
+    <rdfs:label>Individual Stakeholder</rdfs:label>
+    <rdfs:comment>Represents a single person who is a stakeholder</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StakeholderEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GroupStakeholder">
+    <rdfs:label>Group Stakeholder</rdfs:label>
+    <rdfs:comment>Represents a collection of individuals who form a stakeholder group</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StakeholderEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OrganizationalStakeholder">
+    <rdfs:label>Organizational Stakeholder</rdfs:label>
+    <rdfs:comment>Represents an organization that is a stakeholder</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StakeholderEntity"/>
+  </owl:Class>
+
+  <!-- Influence and Interest Classes -->
+  <owl:Class rdf:about="#InfluenceLevel">
+    <rdfs:label>Influence Level</rdfs:label>
+    <rdfs:comment>Represents the degree of influence a stakeholder has</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HighInfluence">
+    <rdfs:label>High Influence</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InfluenceLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MediumInfluence">
+    <rdfs:label>Medium Influence</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InfluenceLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LowInfluence">
+    <rdfs:label>Low Influence</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InfluenceLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#InterestLevel">
+    <rdfs:label>Interest Level</rdfs:label>
+    <rdfs:comment>Represents the degree of interest a stakeholder has</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HighInterest">
+    <rdfs:label>High Interest</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InterestLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MediumInterest">
+    <rdfs:label>Medium Interest</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InterestLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LowInterest">
+    <rdfs:label>Low Interest</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InterestLevel"/>
+  </owl:Class>
+
+  <!-- Engagement Properties Classes -->
+  <owl:Class rdf:about="#CommunicationPreference">
+    <rdfs:label>Communication Preference</rdfs:label>
+    <rdfs:comment>Represents the preference method of communication of the stakeholder</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Concern">
+    <rdfs:label>Concern</rdfs:label>
+    <rdfs:comment>Represents a specific issue or topic that is important to a stakeholder</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ResourceContribution">
+    <rdfs:label>Resource Contribution</rdfs:label>
+    <rdfs:comment>Represents resources a stakeholder can contribute to a project</rdfs:comment>
+  </owl:Class>
+
+  <!-- Object Properties (Relationships) -->
+  <owl:ObjectProperty rdf:about="#hasInfluenceLevel">
+    <rdfs:label>has influence level</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#InfluenceLevel"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasInterestLevel">
+    <rdfs:label>has interest level</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#InterestLevel"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#belongsToOrganization">
+    <rdfs:label>belongs to organization</rdfs:label>
+    <rdfs:domain rdf:resource="#IndividualStakeholder"/>
+    <rdfs:range rdf:resource="#Organization"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#supports">
+    <rdfs:label>supports</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#Issue"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#opposes">
+    <rdfs:label>opposes</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#Issue"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#collaboratesWith">
+    <rdfs:label>collaborates with</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#StakeholderEntity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#reportsTo">
+    <rdfs:label>reports to</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#StakeholderEntity"/>
+    <owl:inverseOf rdf:resource="#supervises"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#supervises">
+    <rdfs:label>supervises</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#StakeholderEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#providesInputTo">
+    <rdfs:label>provides input to</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#StakeholderEntity"/>
+    <owl:inverseOf rdf:resource="#receivesOutputFrom"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#receivesOutputFrom">
+    <rdfs:label>receives output from</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#StakeholderEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasEngagementRecord">
+    <rdfs:label>has engagement record</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#EngagementRecord"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasCommunicationPreference">
+    <rdfs:label>has communication preference</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#CommunicationPreference"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasConcern">
+    <rdfs:label>has concern</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#Concern"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#relatedToProject">
+    <rdfs:label>related to project</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#Project"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#contributesResource">
+    <rdfs:label>contributes resource</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="#ResourceContribution"/>
+  </owl:ObjectProperty>
+
+  <!-- Data Properties (Attributes) -->
+  <owl:DatatypeProperty rdf:about="#hasName">
+    <rdfs:label>has name</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasRole">
+    <rdfs:label>has role</rdfs:label>
+    <rdfs:domain rdf:resource="#IndividualStakeholder"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasDomain">
+    <rdfs:label>has domain</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasContactInformation">
+    <rdfs:label>has contact information</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasDecisionAuthority">
+    <rdfs:label>has decision authority</rdfs:label>
+    <rdfs:domain rdf:resource="#StakeholderEntity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasEngagementDate">
+    <rdfs:label>has engagement date</rdfs:label>
+    <rdfs:domain rdf:resource="#EngagementRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasEngagementDescription">
+    <rdfs:label>has engagement description</rdfs:label>
+    <rdfs:domain rdf:resource="#EngagementRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasEngagementOutcome">
+    <rdfs:label>has engagement outcome</rdfs:label>
+    <rdfs:domain rdf:resource="#EngagementRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasPriorityLevel">
+    <rdfs:label>has priority level</rdfs:label>
+    <rdfs:domain rdf:resource="#Concern"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasResourceDescription">
+    <rdfs:label>has resource description</rdfs:label>
+    <rdfs:domain rdf:resource="#ResourceContribution"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+</rdf:RDF>

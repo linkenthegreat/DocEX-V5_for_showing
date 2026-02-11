@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Similarity Search Test - DocEX</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-form { 
+            background-color: #f9f9f9; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-bottom: 20px;
+        }
+        .results { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 20px;
+            background-color: #fafafa;
+        }
+        .similar-doc { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 3px;
+            background-color: white;
+        }
+        .score { 
+            font-weight: bold; 
+            color: #2c5530;
+        }
+        select, button { 
+            padding: 8px; 
+            margin: 5px; 
+            font-size: 14px;
+        }
+        button { 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 3px; 
+            cursor: pointer;
+        }
+        button:hover { 
+            background-color: #0056b3; 
+        }
+        .loading { 
+            color: #666; 
+            font-style: italic;
+        }
+        .error { 
+            color: red; 
+            background-color: #ffe6e6; 
+            padding: 10px; 
+            border-radius: 3px;
+        }
+        .success { 
+            color: green; 
+            background-color: #e6ffe6; 
+            padding: 10px; 
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vector Database Similarity Search Test</h1>
+        
+        <div class="test-form">
+            <h3>Test Similarity Search</h3>
+            <label for="documentSelect">Select Document:</label>
+            <select id="documentSelect">
+                <option value="">-- Choose a document --</option>
+                {% for doc in documents %}
+                <option value="{{ doc.doc_id }}">{{ doc.title }} ({{ doc.paragraph_count }} paragraphs)</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            
+            <label for="threshold">Similarity Threshold:</label>
+            <input type="number" id="threshold" value="0.7" min="0" max="1" step="0.1">
+            
+            <label for="limit">Max Results:</label>
+            <input type="number" id="limit" value="5" min="1" max="10">
+            <br><br>
+            
+            <button onclick="testSimilarity()">Test Similarity Search</button>
+            <button onclick="testAllDocuments()">Test All Documents</button>
+        </div>
+        
+        <div id="results" class="results" style="display: none;">
+            <h3>Results</h3>
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testSimilarity() {
+            const docId = document.getElementById('documentSelect').value;
+            const threshold = document.getElementById('threshold').value;
+            const limit = document.getElementById('limit').value;
+            
+            if (!docId) {
+                alert('Please select a document');
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            const contentDiv = document.getElementById('resultsContent');
+            
+            resultsDiv.style.display = 'block';
+            contentDiv.innerHTML = '<div class="loading">Testing similarity search...</div>';
+            
+            try {
+                const response = await fetch(`/vector/api/similar/${encodeURIComponent(docId)}?threshold=${threshold}&limit=${limit}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displaySimilarityResults(data);
+                } else {
+                    contentDiv.innerHTML = `<div class="error">Error: ${data.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testAllDocuments() {
+            const resultsDiv = document.getElementById('results');
+            const contentDiv = document.getElementById('resultsContent');
+            
+            resultsDiv.style.display = 'block';
+            contentDiv.innerHTML = '<div class="loading">Testing similarity search for all documents...</div>';
+            
+            try {
+                const response = await fetch('/vector/debug/test_all_similarities');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayAllSimilarityResults(data);
+                } else {
+                    contentDiv.innerHTML = `<div class="error">Error: ${data.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+            }
+        }
+        
+        function displaySimilarityResults(data) {
+            const contentDiv = document.getElementById('resultsContent');
+            
+            let html = `
+                <div class="success">
+                    <strong>Query Document:</strong> ${data.doc_id}<br>
+                    <strong>Found:</strong> ${data.count} similar documents
+                </div>
+            `;
+            
+            if (data.similar_documents && data.similar_documents.length > 0) {
+                html += '<h4>Similar Documents:</h4>';
+                data.similar_documents.forEach((doc, index) => {
+                    html += `
+                        <div class="similar-doc">
+                            <strong>Rank ${index + 1}:</strong> ${doc.title || doc.doc_id}<br>
+                            <strong>Similarity Score:</strong> <span class="score">${doc.similarity_score.toFixed(3)}</span><br>
+                            <strong>Document ID:</strong> ${doc.doc_id}<br>
+                            <strong>Format:</strong> ${doc.metadata.format || 'Unknown'}<br>
+                            <strong>Paragraphs:</strong> ${doc.metadata.paragraph_count || 0}
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<p>No similar documents found above the threshold.</p>';
+            }
+            
+            contentDiv.innerHTML = html;
+        }
+        
+        function displayAllSimilarityResults(data) {
+            const contentDiv = document.getElementById('resultsContent');
+            
+            let html = `<div class="success">Tested ${data.total_documents_tested} documents</div>`;
+            html += '<h4>Results Summary:</h4>';
+            
+            data.results.forEach(result => {
+                html += `
+                    <div class="similar-doc">
+                        <strong>${result.title}</strong> (${result.doc_id})<br>
+                        <span class="score">${result.similar_count} similar documents found</span>
+                    </div>
+                `;
+            });
+            
+            contentDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

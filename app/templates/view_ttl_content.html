@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View TTL Content</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% include 'components/notifications.html' %}
+    
+    <div class="ttl-view-container">
+        <h1 class="ttl-title">TTL Content: {{ filename }}</h1>
+        
+        <div class="ttl-back-button">
+            <a href="{{ url_for('main.manage_triples') }}">
+                <button>Back to RDF Manager</button>
+            </a>
+        </div>
+        
+        <div class="ttl-content-card">
+            <div class="ttl-content-header">
+                <h3>File Content</h3>
+            </div>
+            <div class="ttl-content-body">
+                <pre class="ttl-content-display">{{ content }}</pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

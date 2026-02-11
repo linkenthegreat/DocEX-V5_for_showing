@@ -1,0 +1,179 @@
+{
+  "summary": {
+    "total_tests": 3,
+    "successful_tests": 3,
+    "success_rate": 1.0,
+    "overall_success": true
+  },
+  "test_results": {
+    "basic_function_calling": {
+      "test": "basic_function_calling",
+      "success": true,
+      "response": {
+        "extraction_confidence": 0.8,
+        "stakeholders": [
+          {
+            "confidence_score": 0.9,
+            "name": "John Smith",
+            "role": "Project Manager",
+            "stakeholder_type": "INDIVIDUAL"
+          },
+          {
+            "confidence_score": 0.9,
+            "name": "Sarah Johnson",
+            "role": "Leader of Development Team",
+            "stakeholder_type": "INDIVIDUAL"
+          },
+          {
+            "confidence_score": 0.9,
+            "name": "Development Team",
+            "role": "Technical Implementation",
+            "stakeholder_type": "GROUP"
+          },
+          {
+            "confidence_score": 0.9,
+            "name": "NDIS Quality and Safeguards Commission",
+            "role": "Regulatory Oversight",
+            "stakeholder_type": "ORGANIZATIONAL"
+          },
+          {
+            "confidence_score": 0.9,
+            "name": "Dr. Michael Brown",
+            "role": "Research Advisor",
+            "stakeholder_type": "INDIVIDUAL"
+          },
+          {
+            "confidence_score": 0.9,
+            "name": "University of Melbourne",
+            "role": "Affiliated Institution",
+            "stakeholder_type": "ORGANIZATIONAL"
+          }
+        ]
+      },
+      "validation": {
+        "has_stakeholders": true,
+        "has_extraction_confidence": true,
+        "stakeholders_is_list": true,
+        "extraction_confidence_valid": true,
+        "stakeholder_count": 6,
+        "stakeholder_has_name": true,
+        "stakeholder_has_type": true,
+        "stakeholder_has_confidence": true,
+        "confidence_score_valid": true,
+        "overall_valid": true
+      }
+    },
+    "schema_validation": {
+      "test": "schema_validation",
+      "success": true,
+      "response": {
+        "extraction_confidence": 0.95,
+        "stakeholders": [
+          {
+            "confidence_score": 0.95,
+            "name": "Department of Social Services",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Oversees the program"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Minister Anne Ruston",
+            "stakeholder_type": "INDIVIDUAL",
+            "role": "Has final authority"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Lisa Chen",
+            "stakeholder_type": "INDIVIDUAL",
+            "role": "Regional coordinator for Victoria"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Mark Thompson",
+            "stakeholder_type": "INDIVIDUAL",
+            "role": "Regional coordinator for NSW"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Queensland Disability Network",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Collaborates on service delivery"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Participants and their families",
+            "stakeholder_type": "GROUP",
+            "role": "Primary beneficiaries"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Disability Advocacy Network Australia",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Represents participants and their families"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "EnableMe Services",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Delivers support services"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Community Care Solutions",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Delivers support services"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Dr. Jennifer Walsh",
+            "stakeholder_type": "INDIVIDUAL",
+            "role": "Disability researcher on the review committee"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Tom Anderson",
+            "stakeholder_type": "INDIVIDUAL",
+            "role": "Policy analyst on the review committee"
+          },
+          {
+            "confidence_score": 0.95,
+            "name": "Australian Disability Enterprises Association",
+            "stakeholder_type": "ORGANIZATIONAL",
+            "role": "Represents on the review committee"
+          }
+        ]
+      },
+      "validation_details": {
+        "valid": true,
+        "violations": []
+      }
+    },
+    "edge_cases": {
+      "test": "edge_cases",
+      "success": true,
+      "response": {
+        "extraction_confidence": 0.7,
+        "stakeholders": [
+          {
+            "confidence_score": 0.9,
+            "name": "Jennifer",
+            "role": "Participant",
+            "stakeholder_type": "INDIVIDUAL"
+          },
+          {
+            "confidence_score": 0.8,
+            "name": "the team",
+            "role": "Group of participants",
+            "stakeholder_type": "GROUP"
+          }
+        ]
+      },
+      "edge_case_validation": {
+        "extracted_from_minimal": true,
+        "appropriate_confidence": false,
+        "no_hallucination": true
+      }
+    }
+  },
+  "timestamp": "2025-01-08T10:00:00Z"
+}

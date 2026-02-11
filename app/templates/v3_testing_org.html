@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Manager</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div align="center">
+        <h1>Local File System</h1>
+        <p><strong>CWD: </strong>{{ current_working_directory }}</p>
+    </div>
+    <ul>
+        <li><a href="/level_up">upper_level</a></li><!--for functioning to go up one level-->
+        {% for item in file_list %}
+            <li>
+                {% if item.is_dir %}
+                    <a href="{{ url_for('navigate', subfolder=item.name) }}">{{ item.name }}</a> <!--for functioning to go into a folder-->
+                {% else %}
+                    {{ item.name }} <!--for displaying a file-->
+                        <a href="{{ url_for('preview', filename=item.name) }}">(Preview)</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <div align="left">
+        <h1>File List</h1>
+    </div>
+    <table border="1" align="center">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Size (bytes)</th>
+                <th>Access Date</th>
+                <th>Create Date</th>
+                <th>Modified Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7"><a href="/level_up">Level Up</a></td>
+            </tr>
+            {% for item in file_list %}
+                <tr>
+                    <td>
+                        {% if item.is_dir %}
+                            <a href="{{ url_for('navigate', subfolder=item.name) }}">{{ item.name }}</a>
+                        {% else %}
+                            {{ item.name }}
+                        {% endif %}
+                    </td>
+                    <td>{{ item.file_type }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ item.access_date }}</td>
+                    <td>{{ item.create_date }}</td>
+                    <td>{{ item.modified_date }}</td>
+                    <td>
+                        {% if not item.is_dir %}
+                            <a href="{{ url_for('preview', filename=item.name) }}">(Preview)</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table border="1" align="center">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Size (bytes)</th>
+                <th>Access Date</th>
+                <th>Create Date</th>
+                <th>Modified Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7"><a href="/level_up">Level Up</a></td>
+            </tr>
+            {% for item in file_list %}
+                <tr>
+                    <td>
+                        {% if item.is_dir %}
+                            <a href="{{ url_for('navigate', subfolder=item.name) }}">{{ item.name }}</a>
+                        {% else %}
+                            {{ item.name }}
+                        {% endif %}
+                    </td>
+                    <td>{{ item.file_type }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ item.access_date }}</td>
+                    <td>{{ item.create_date }}</td>
+                    <td>{{ item.modified_date }}</td>
+                    <td>
+                        {% if not item.is_dir %}
+                            <a href="{{ url_for('preview', filename=item.name) }}">(Preview)</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!-- Review Modal for Extraction Results -->
+<div id="reviewModal" class="extraction-modal">
+    <div class="modal-content review-modal-content">
+        <div class="modal-header">
+            <h3>👁️ Review Extraction Results</h3>
+            <span class="close-btn" onclick="closeReviewModal()">&times;</span>
+        </div>
+        
+        <div class="modal-body">
+            <!-- File Information Header -->
+            <div class="review-header">
+                <div class="file-info-section">
+                    <h4 id="reviewFilename">filename.json</h4>
+                    <div class="file-metadata">
+                        <span class="metadata-item">
+                            <strong>Status:</strong> <span id="reviewStatus" class="status-badge">Complete</span>
+                        </span>
+                        <span class="metadata-item">
+                            <strong>Agent:</strong> <span id="reviewAgent">GPT-4o</span>
+                        </span>
+                        <span class="metadata-item">
+                            <strong>Quality:</strong> <span id="reviewQuality" class="quality-score">93%</span>
+                        </span>
+                        <span class="metadata-item">
+                            <strong>Stakeholders:</strong> <span id="reviewStakeholderCount">5</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="review-actions-header">
+                    <button class="btn btn-success" onclick="approveAllStakeholders()">
+                        ✅ Approve All
+                    </button>
+                    <button class="btn btn-warning" onclick="exportForReview()">
+                        📤 Export
+                    </button>
+                    <button class="btn btn-info" onclick="showExtractionLog()">
+                        📋 View Log
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Stakeholder Review Section -->
+            <div class="stakeholder-review-section">
+                <div class="section-header">
+                    <h4>📋 Stakeholder Review</h4>
+                    <div class="review-filters">
+                        <select id="confidenceFilter" onchange="filterStakeholders()">
+                            <option value="all">All Confidence</option>
+                            <option value="high">High (80%+)</option>
+                            <option value="medium">Medium (60-80%)</option>
+                            <option value="low">Low (<60%)</option>
+                        </select>
+                        <select id="typeFilter" onchange="filterStakeholders()">
+                            <option value="all">All Types</option>
+                            <option value="RESEARCHER">Researchers</option>
+                            <option value="GOVERNMENT_OFFICIAL">Government</option>
+                            <option value="ORGANIZATION">Organizations</option>
+                            <option value="COMMUNITY_MEMBER">Community</option>
+                        </select>
+                        <select id="statusFilter" onchange="filterStakeholders()">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending Review</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="modified">Modified</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Stakeholder Grid -->
+                <div id="stakeholderReviewGrid" class="stakeholder-review-grid">
+                    <!-- Stakeholder cards will be populated here -->
+                </div>
+            </div>
+            
+            <!-- Bulk Actions -->
+            <div class="bulk-actions-section">
+                <div class="bulk-controls">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="selectAllStakeholders" onchange="toggleSelectAll()">
+                        <span class="checkmark"></span>
+                        Select All
+                    </label>
+                    <div class="bulk-action-buttons">
+                        <button class="btn btn-sm btn-success" onclick="bulkApprove()">
+                            ✅ Approve Selected
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="bulkReject()">
+                            ❌ Reject Selected
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="bulkEdit()">
+                            ✏️ Edit Selected
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+            <div class="review-summary">
+                <span id="reviewSummaryText">5 stakeholders • 3 approved • 2 pending</span>
+            </div>
+            <div class="footer-actions">
+                <button class="btn btn-success btn-large" onclick="finalizeReview()">
+                    🎯 Finalize Review
+                </button>
+                <button class="btn btn-secondary" onclick="saveReviewProgress()">
+                    💾 Save Progress
+                </button>
+                <button class="btn btn-danger" onclick="closeReviewModal()">
+                    ❌ Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Stakeholder Modal -->
+<div id="editStakeholderModal" class="extraction-modal">
+    <div class="modal-content edit-modal-content">
+        <div class="modal-header">
+            <h3>✏️ Edit Stakeholder</h3>
+            <span class="close-btn" onclick="closeEditStakeholderModal()">&times;</span>
+        </div>
+        
+        <div class="modal-body">
+            <form id="editStakeholderForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editName">Name</label>
+                        <input type="text" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editType">Type</label>
+                        <select id="editType" required>
+                            <option value="RESEARCHER">Researcher</option>
+                            <option value="GOVERNMENT_OFFICIAL">Government Official</option>
+                            <option value="ORGANIZATION">Organization</option>
+                            <option value="COMMUNITY_MEMBER">Community Member</option>
+                            <option value="ACADEMIC">Academic</option>
+                            <option value="INDUSTRY">Industry</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editRole">Role</label>
+                        <input type="text" id="editRole">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOrganization">Organization</label>
+                        <input type="text" id="editOrganization">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editContact">Contact</label>
+                        <input type="email" id="editContact">
+                    </div>
+                    <div class="form-group">
+                        <label for="editConfidence">Confidence Score</label>
+                        <input type="range" id="editConfidence" min="0" max="1" step="0.01" value="0.8">
+                        <span id="editConfidenceValue">80%</span>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="editSourceText">Source Text</label>
+                    <textarea id="editSourceText" rows="3" placeholder="Relevant text from the document..."></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="editNotes">Review Notes</label>
+                    <textarea id="editNotes" rows="2" placeholder="Add any notes about this stakeholder..."></textarea>
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-success" onclick="saveStakeholderEdit()">
+                💾 Save Changes
+            </button>
+            <button class="btn btn-secondary" onclick="closeEditStakeholderModal()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

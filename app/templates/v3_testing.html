@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Manager</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% include 'components/notifications.html' %}
+    <div align="center">
+        <h1>Local File System</h1>
+        <p><strong>CWD: </strong>{{ current_working_directory }}</p>
+    </div>
+    <form action="{{ url_for('main.upload_files') }}" method="post" enctype="multipart/form-data">
+        <table border="1" align="center">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Size (bytes)</th>
+                    <th>Access Date</th>
+                    <th>Create Date</th>
+                    <th>Modified Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="8"><a href="{{ url_for('main.level_up') }}">Level Up</a></td>
+                </tr>
+                {% for item in file_list %}
+                    <tr>
+                        <td>
+                            {% if not item.is_dir %}
+                                <input type="checkbox" name="selected_files" value="{{ item.name }}">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.is_dir %}
+                                <a href="{{ url_for('main.navigate', subfolder=item.name) }}">{{ item.name }}</a>
+                            {% else %}
+                                {{ item.name }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.file_type }}</td>
+                        <td>{{ item.size }}</td>
+                        <td>{{ item.access_date }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.modified_date }}</td>
+                        <td>
+                            {% if not item.is_dir %}
+                                <a href="{{ url_for('main.preview', filename=item.name) }}">Preview</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div align="center" style="margin-top: 20px;">
+            <button type="submit">Process Selected Files</button>
+        </div>
+    </form>
+    <div align="center" style="margin-top: 20px;">
+        <a href="{{ url_for('main.manage_triples') }}"><button type="button">Manage RDF Triples</button></a>
+    </div>
+</body>
+</html>

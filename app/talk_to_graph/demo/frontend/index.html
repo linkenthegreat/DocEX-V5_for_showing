@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to Graph - Demo</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗣️ Talk to Graph - Demo</h1>
+            <p>Compare SPARQL vs LLM Vector Search</p>
+            <div class="stats" id="stats">
+                📊 Loading statistics...
+            </div>
+            <div style="margin-top: 15px;">
+                <button id="embedButton" class="embed-button" onclick="embedDocuments()">
+                    📦 Embed Documents
+                </button>
+                <span id="embedStatus" style="margin-left: 10px; color: white;"></span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="query-section">
+                <h2>Ask a Question</h2>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="questionInput" 
+                        placeholder="e.g., Who are the accessibility advocates?"
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button id="sendButton" onclick="sendQuestion()">Ask Both</button>
+                </div>
+                
+                <div class="example-queries">
+                    <strong>Try these:</strong>
+                    <button class="example-btn" onclick="askExample('Who are the accessibility advocates?')">
+                        Accessibility advocates
+                    </button>
+                    <button class="example-btn" onclick="askExample('Show me all stakeholders')">
+                        All stakeholders
+                    </button>
+                    <button class="example-btn" onclick="askExample('Who works for government organizations?')">
+                        Government stakeholders
+                    </button>
+                    <button class="example-btn" onclick="askExample('List all project leaders')">
+                        Project leaders
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-section">
+                <div class="result-column">
+                    <h3>🔍 SPARQL Results</h3>
+                    <div id="sparqlResults" class="result-box">
+                        <p class="placeholder">Results will appear here...</p>
+                    </div>
+                </div>
+                
+                <div class="result-column">
+                    <h3>🤖 LLM Vector Search Results</h3>
+                    <div id="llmResults" class="result-box">
+                        <p class="placeholder">Results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

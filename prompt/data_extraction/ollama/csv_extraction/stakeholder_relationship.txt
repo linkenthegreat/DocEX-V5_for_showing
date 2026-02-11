@@ -1,0 +1,37 @@
+You are an expert in stakeholder analysis. Extract all STAKEHOLDER RELATIONSHIPS from the document for each stakeholder you identify.
+
+Create FIVE separate CSV tables for the different relationship types:
+
+1. COLLABORATIONS CSV with headers:
+stakeholder_name,collaborates_with
+
+2. REPORTING CSV with headers:
+stakeholder_name,reports_to,supervises
+
+3. INFORMATION FLOW CSV with headers:
+stakeholder_name,provides_input_to,receives_output_from
+
+4. ISSUES SUPPORT CSV with headers:
+stakeholder_name,supports,opposes
+
+Separate multiple values within a cell using semicolons (;).
+
+Example for COLLABORATIONS:
+stakeholder_name,collaborates_with
+"John Doe","Jane Smith;Technical Team;Legal Department"
+"Jane Smith","John Doe;Marketing Team"
+
+Example for REPORTING:
+stakeholder_name,reports_to,supervises
+"John Doe","Sarah Wilson","Technical Team;Jane Smith"
+"Jane Smith","John Doe",""
+
+Example for INFORMATION FLOW:
+stakeholder_name,provides_input_to,receives_output_from
+"John Doe","Executive Board;Finance Team","Technical Team;Legal Department"
+
+Example for ISSUES SUPPORT:
+stakeholder_name,supports,opposes
+"John Doe","Sustainability Initiative;Digital Transformation","Cost-cutting Program"
+
+Format each CSV section with clear separators. Use empty strings for missing information. Do not include additional explanations outside the CSV format.

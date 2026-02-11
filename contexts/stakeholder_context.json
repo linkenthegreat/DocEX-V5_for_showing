@@ -1,0 +1,180 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "http://www.example.org/stakeholder-ontology#",
+    "stakeholder": "http://www.example.org/stakeholder-ontology#",
+    "docex": "http://example.org/docex/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "schema": "http://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    
+    "StakeholderEntity": {
+      "@id": "stakeholder:StakeholderEntity",
+      "@type": "@id"
+    },
+    "IndividualStakeholder": {
+      "@id": "stakeholder:IndividualStakeholder",
+      "@type": "@id"
+    },
+    "GroupStakeholder": {
+      "@id": "stakeholder:GroupStakeholder",
+      "@type": "@id"
+    },
+    "OrganizationalStakeholder": {
+      "@id": "stakeholder:OrganizationalStakeholder",
+      "@type": "@id"
+    },
+    
+    "InfluenceLevel": {
+      "@id": "stakeholder:InfluenceLevel",
+      "@type": "@id"
+    },
+    "HighInfluence": {
+      "@id": "stakeholder:HighInfluence",
+      "@type": "@id"
+    },
+    "MediumInfluence": {
+      "@id": "stakeholder:MediumInfluence",
+      "@type": "@id"
+    },
+    "LowInfluence": {
+      "@id": "stakeholder:LowInfluence",
+      "@type": "@id"
+    },
+    
+    "InterestLevel": {
+      "@id": "stakeholder:InterestLevel",
+      "@type": "@id"
+    },
+    "HighInterest": {
+      "@id": "stakeholder:HighInterest",
+      "@type": "@id"
+    },
+    "MediumInterest": {
+      "@id": "stakeholder:MediumInterest",
+      "@type": "@id"
+    },
+    "LowInterest": {
+      "@id": "stakeholder:LowInterest",
+      "@type": "@id"
+    },
+    
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "hasRole": {
+      "@id": "stakeholder:hasRole",
+      "@type": "xsd:string"
+    },
+    "belongsToOrganization": {
+      "@id": "stakeholder:belongsToOrganization",
+      "@type": "xsd:string"
+    },
+    "hasConcern": {
+      "@id": "stakeholder:hasConcern",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "hasResponsibility": {
+      "@id": "stakeholder:hasResponsibility",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "collaboratesWith": {
+      "@id": "stakeholder:collaboratesWith",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasInfluenceLevel": {
+      "@id": "stakeholder:hasInfluenceLevel",
+      "@type": "@id"
+    },
+    "hasInterestLevel": {
+      "@id": "stakeholder:hasInterestLevel",
+      "@type": "@id"
+    },
+    "hasEngagementRecord": {
+      "@id": "stakeholder:hasEngagementRecord",
+      "@type": "@id"
+    },
+    "isStakeholderIn": {
+      "@id": "stakeholder:isStakeholderIn",
+      "@type": "@id"
+    },
+    
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "sourceText": {
+      "@id": "docex:sourceText",
+      "@type": "xsd:string"
+    },
+    "startPosition": {
+      "@id": "docex:startPosition",
+      "@type": "xsd:integer"
+    },
+    "endPosition": {
+      "@id": "docex:endPosition",
+      "@type": "xsd:integer"
+    },
+    "documentId": {
+      "@id": "docex:documentId",
+      "@type": "xsd:string"
+    },
+    "paragraphNumber": {
+      "@id": "docex:paragraphNumber",
+      "@type": "xsd:integer"
+    },
+    "sentenceNumber": {
+      "@id": "docex:sentenceNumber",
+      "@type": "xsd:integer"
+    },
+    
+    "extractionConfidence": {
+      "@id": "docex:extractionConfidence",
+      "@type": "xsd:decimal"
+    },
+    "extractionMethod": {
+      "@id": "docex:extractionMethod",
+      "@type": "xsd:string"
+    },
+    "extractedAt": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    },
+    "totalStakeholders": {
+      "@id": "docex:totalStakeholders",
+      "@type": "xsd:integer"
+    },
+    "totalParagraphs": {
+      "@id": "docex:totalParagraphs",
+      "@type": "xsd:integer"
+    },
+    "totalSentences": {
+      "@id": "docex:totalSentences",
+      "@type": "xsd:integer"
+    },
+    "processingTimeSeconds": {
+      "@id": "docex:processingTimeSeconds",
+      "@type": "xsd:decimal"
+    },
+    
+    "title": {
+      "@id": "dcterms:title",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "dcterms:source",
+      "@type": "xsd:string"
+    },
+    "created": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

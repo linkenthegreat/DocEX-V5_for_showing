@@ -1,0 +1,92 @@
+# RDF Format Prompt for Stakeholder Extraction
+
+Here's a prompt designed to extract stakeholder information and format it as RDF that aligns with your ontology:
+
+```
+You are an expert in knowledge extraction and semantic web technologies. I need you to extract stakeholder information from the provided document and represent it using RDF (Resource Description Framework) that follows a specific ontology.
+
+Analyze the text and identify all stakeholders, then express their properties and relationships using the stakeholder ontology.
+
+Use the following namespaces:
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix stakeholder: <http://www.example.org/stakeholder-ontology#> .
+@prefix : <http://www.example.org/stakeholder-instances#> .
+
+For each stakeholder, extract and represent:
+
+1. BASIC PROPERTIES:
+   - Type (IndividualStakeholder, GroupStakeholder, or OrganizationalStakeholder)
+   - Name (hasName)
+   - Role (hasRole) - for individuals
+   - Domain (hasDomain)
+   - Contact Information (hasContactInformation)
+   - Decision Authority (hasDecisionAuthority)
+
+2. CLASSIFICATIONS:
+   - Influence Level (hasInfluenceLevel → HighInfluence, MediumInfluence, LowInfluence)
+   - Interest Level (hasInterestLevel → HighInterest, MediumInterest, LowInterest)
+
+3. RELATIONSHIPS:
+   - Organization membership (belongsToOrganization)
+   - Issue support/opposition (supports, opposes)
+   - Stakeholder relationships (collaboratesWith, reportsTo, supervises, providesInputTo, receivesOutputFrom)
+
+4. ENGAGEMENT:
+   - Communication Preferences (hasCommunicationPreference)
+   - Concerns (hasConcern) with priority levels
+   - Related Projects (relatedToProject)
+   - Resource Contributions (contributesResource)
+   - Engagement Records (hasEngagementRecord) with dates, descriptions, and outcomes
+
+Format your extraction as valid Turtle (TTL) RDF. Create URI identifiers for each entity. Use blank nodes (_:node1) for complex structures like engagement records and concerns.
+
+For example:
+```
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix stakeholder: <http://www.example.org/stakeholder-ontology#> .
+@prefix : <http://www.example.org/stakeholder-instances#> .
+
+:JohnDoe rdf:type stakeholder:IndividualStakeholder ;
+    stakeholder:hasName "John Doe" ;
+    stakeholder:hasRole "Project Manager" ;
+    stakeholder:hasDomain "Information Technology" ;
+    stakeholder:hasContactInformation "john.doe@example.com" ;
+    stakeholder:hasDecisionAuthority "true"^^xsd:boolean ;
+    stakeholder:hasInfluenceLevel stakeholder:HighInfluence ;
+    stakeholder:hasInterestLevel stakeholder:MediumInterest ;
+    stakeholder:belongsToOrganization :AcmeCorp ;
+    stakeholder:supports :DigitalTransformation ;
+    stakeholder:opposes :BudgetReduction ;
+    stakeholder:collaboratesWith :JaneSmith ;
+    stakeholder:reportsTo :SarahJohnson ;
+    stakeholder:supervises :TechnicalTeam ;
+    stakeholder:providesInputTo :ExecutiveBoard ;
+    stakeholder:receivesOutputFrom :DevelopmentTeam ;
+    stakeholder:hasCommunicationPreference :Email ;
+    stakeholder:hasConcern [
+        rdf:type stakeholder:Concern ;
+        stakeholder:hasResourceDescription "Timeline constraints" ;
+        stakeholder:hasPriorityLevel "5"^^xsd:integer
+    ] ;
+    stakeholder:relatedToProject :CustomerPortal ;
+    stakeholder:contributesResource [
+        rdf:type stakeholder:ResourceContribution ;
+        stakeholder:hasResourceDescription "Technical expertise in cloud architecture"
+    ] ;
+    stakeholder:hasEngagementRecord [
+        rdf:type stakeholder:EngagementRecord ;
+        stakeholder:hasEngagementDate "2023-05-15"^^xsd:date ;
+        stakeholder:hasEngagementDescription "Project kickoff meeting" ;
+        stakeholder:hasEngagementOutcome "Alignment on project objectives achieved"
+    ] .
+
+:AcmeCorp rdf:type stakeholder:OrganizationalStakeholder ;
+    stakeholder:hasName "Acme Corporation" .
+```
+
+Create RDF representations for all stakeholders you can identify in the document. If information for a property is unavailable, simply omit that property. Follow the ontology structure exactly to ensure compatibility.
+

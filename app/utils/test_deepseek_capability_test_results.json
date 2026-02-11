@@ -1,0 +1,656 @@
+"""
+JSON-LD Capability Test for GPT-4o and DeepSeek-V3
+Tests both models' ability to generate DocEX ontology-compliant JSON-LD
+"""
+import json
+import os
+import logging
+from datetime import datetime
+from typing import Dict, Any, List
+import traceback
+
+# Add the project root to the path
+import sys
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+sys.path.insert(0, project_root)
+
+from app.llm.providers.github_models_provider import GitHubModelsProvider
+from app.config.llm_config import LLMConfig
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class JSONLDCapabilityTester:
+  """Test JSON-LD generation capabilities of different LLM providers"""
+  
+  def __init__(self):
+    self.config = LLMConfig()
+    self.provider = GitHubModelsProvider(self.config)
+    self.test_results = {
+      "summary": {
+        "total_tests": 0,
+        "gpt4o_successful": 0,
+        "deepseek_successful": 0,
+        "overall_success": False
+      },
+      "test_results": {},
+      "model_comparison": {},
+      "timestamp": datetime.now().isoformat()
+    }
+    
+    # DocEX Ontology Context
+    self.docex_context = {
+      "@context": {
+        "@vocab": "http://docex.org/ontology#",
+        "docex": "http://docex.org/ontology#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "title": "docex:title",
+        "fileFormat": "docex:fileFormat",
+        "processingDate": "docex:processingDate",
+        "hasParagraph": {
+          "@id": "docex:hasParagraph",
+          "@container": "@list"
+        },
+        "paragraphText": "docex:paragraphText",
+        "hasStakeholder": {
+          "@id": "docex:hasStakeholder",
+          "@container": "@set"
+        },
+        "stakeholderName": "docex:stakeholderName",
+        "stakeholderRole": "docex:stakeholderRole",
+        "stakeholderType": "docex:stakeholderType",
+        "confidenceScore": "docex:confidenceScore",
+        "extractionConfidence": "docex:extractionConfidence"
+      }
+    }
+  
+  def run_all_tests(self):
+    """Run all JSON-LD capability tests"""
+    print("🧪 JSON-LD Capability Test for GPT-4o and DeepSeek-V3")
+    print("Testing ontology-compliant JSON-LD generation")
+    print("=" * 60)
+    
+    test_methods = [
+      ("basic_jsonld_generation", self.test_basic_jsonld_generation),
+      ("ontology_compliance", self.test_ontology_compliance),
+      ("complex_document_structure", self.test_complex_document_structure),
+      ("semantic_relationships", self.test_semantic_relationships),
+      ("stakeholder_extraction_jsonld", self.test_stakeholder_extraction_jsonld)
+    ]
+    
+    for test_name, test_method in test_methods:
+      print(f"\n🔍 Testing {test_name.replace('_', ' ').title()}...")
+      try:
+        result = test_method()
+        self.test_results["test_results"][test_name] = result
+        self.test_results["summary"]["total_tests"] += 1
+        
+        # Count successes per model
+        if result.get("gpt4o_result", {}).get("success", False):
+          self.test_results["summary"]["gpt4o_successful"] += 1
+        if result.get("deepseek_result", {}).get("success", False):
+          self.test_results["summary"]["deepseek_successful"] += 1
+          
+      except Exception as e:
+        logger.error(f"Error in test {test_name}: {e}")
+        self.test_results["test_results"][test_name] = {
+          "error": str(e),
+          "traceback": traceback.format_exc()
+        }
+    
+    # Calculate final results
+    total_tests = self.test_results["summary"]["total_tests"]
+    if total_tests > 0:
+      gpt4o_rate = self.test_results["summary"]["gpt4o_successful"] / total_tests
+      deepseek_rate = self.test_results["summary"]["deepseek_successful"] / total_tests
+      
+      self.test_results["summary"]["gpt4o_success_rate"] = gpt4o_rate
+      self.test_results["summary"]["deepseek_success_rate"] = deepseek_rate
+      self.test_results["summary"]["overall_success"] = (gpt4o_rate + deepseek_rate) > 1.0
+      
+      # Model comparison
+      self.test_results["model_comparison"] = {
+        "winner": "GPT-4o" if gpt4o_rate > deepseek_rate else "DeepSeek-V3" if deepseek_rate > gpt4o_rate else "Tie",
+        "gpt4o_advantages": [],
+        "deepseek_advantages": [],
+        "recommendation": self.generate_recommendation(gpt4o_rate, deepseek_rate)
+      }
+    
+    self.print_summary()
+    self.save_results()
+  
+  def test_basic_jsonld_generation(self) -> Dict[str, Any]:
+    """Test basic JSON-LD generation with @context"""
+    test_document = """
+    Project Harmony Implementation Plan
+    
+    This document outlines the implementation strategy for Project Harmony, 
+    a new disability support initiative. The project is managed by Sarah Chen 
+    and involves collaboration with the Department of Health.
+    """
+    
+    prompt_template = """
+    Convert the following document into JSON-LD format using the DocEX ontology.
+    Include proper @context, @id, and @type fields.
+    Extract basic metadata like title, content, and any mentioned stakeholders.
+    
+    Document:
+    {document}
+    
+    Expected JSON-LD structure:
+    {{
+      "@context": {{"@vocab": "http://docex.org/ontology#", ...}},
+      "@id": "unique-document-id",
+      "@type": "Document",
+      "title": "document title",
+      "hasStakeholder": [...],
+      ...
+    }}
+    
+    Return only valid JSON-LD:
+    """
+    
+    return self._test_both_models(
+      prompt_template.format(document=test_document),
+      self._validate_basic_jsonld
+    )
+  
+  def test_ontology_compliance(self) -> Dict[str, Any]:
+    """Test compliance with DocEX ontology structure"""
+    test_document = """
+    NDIS Review Committee Meeting Minutes
+    Date: March 15, 2024
+    
+    Attendees:
+    - Dr. Michael Thompson (Chair, NDIS Quality Commission)
+    - Lisa Rodriguez (Community Representative)
+    - Support Services Victoria (Organization)
+    
+    Key Decisions:
+    1. Approve new quality framework
+    2. Review participant feedback processes
+    """
+    
+    prompt_template = """
+    Convert this document to JSON-LD following the DocEX ontology exactly.
+    Use these specific properties:
+    - docex:title for document title
+    - docex:processingDate for dates
+    - docex:hasStakeholder for people/organizations
+    - docex:stakeholderName, docex:stakeholderRole, docex:stakeholderType
+    
+    Document:
+    {document}
+    
+    Context to use:
+    {context}
+    
+    Generate compliant JSON-LD:
+    """
+    
+    return self._test_both_models(
+      prompt_template.format(
+        document=test_document,
+        context=json.dumps(self.docex_context, indent=2)
+      ),
+      self._validate_ontology_compliance
+    )
+  
+  def test_complex_document_structure(self) -> Dict[str, Any]:
+    """Test generation of complex nested JSON-LD with document structure"""
+    test_document = """
+    Disability Services Strategic Plan 2024-2027
+    
+    Executive Summary
+    This strategic plan outlines our commitment to improving disability services 
+    across Australia. Led by Director Janet Williams and the Strategic Planning Committee.
+    
+    Section 1: Current State Analysis
+    Our analysis shows significant gaps in regional service delivery. 
+    Coordinator Mark Stevens has identified key improvement areas.
+    
+    Section 2: Future Vision
+    We envision a comprehensive support network involving community partners 
+    and government agencies working together.
+    """
+    
+    prompt_template = """
+    Convert this document to JSON-LD with full document structure.
+    Include:
+    1. Document metadata
+    2. Paragraph-level structure using docex:hasParagraph
+    3. Stakeholder extraction with confidence scores
+    4. Proper nesting and relationships
+    
+    Document:
+    {document}
+    
+    Expected structure:
+    {{
+      "@context": {{...}},
+      "@id": "document-id",
+      "@type": "Document", 
+      "title": "...",
+      "hasParagraph": [
+        {{
+          "@type": "Paragraph",
+          "paragraphText": "...",
+          "hasStakeholder": [...]
+        }}
+      ],
+      "extractionConfidence": 0.85
+    }}
+    
+    Generate complete JSON-LD:
+    """
+    
+    return self._test_both_models(
+      prompt_template.format(document=test_document),
+      self._validate_complex_structure
+    )
+  
+  def test_semantic_relationships(self) -> Dict[str, Any]:
+    """Test understanding and creation of semantic relationships"""
+    test_document = """
+    Quality Assurance Review Report
+    
+    Primary Reviewer: Dr. Amanda Foster (Senior Quality Assessor)
+    Reporting to: Quality Assurance Division
+    Collaborating with: Regional Service Providers Network
+    
+    Dr. Foster leads a team of quality assessors including:
+    - James Park (Lead Assessor)
+    - Maria Santos (Community Liaison)
+    
+    The review covers services provided by:
+    - Melbourne Disability Support Services
+    - Brisbane Community Care Network
+    """
+    
+    prompt_template = """
+    Convert to JSON-LD with explicit semantic relationships.
+    Show hierarchical relationships (reports to, leads, collaborates with).
+    Use linked data principles with proper @id references.
+    
+    Document:
+    {document}
+    
+    Include relationship types like:
+    - docex:reportsTo
+    - docex:collaboratesWith
+    - docex:leadBy
+    - docex:memberOf
+    
+    Generate relationship-rich JSON-LD:
+    """
+    
+    return self._test_both_models(
+      prompt_template.format(document=test_document),
+      self._validate_semantic_relationships
+    )
+  
+  def test_stakeholder_extraction_jsonld(self) -> Dict[str, Any]:
+    """Test stakeholder extraction in JSON-LD format"""
+    test_document = """
+    Community Engagement Workshop
+    
+    Facilitator: Sarah Mitchell (Community Engagement Specialist)
+    Participants: Local disability advocacy groups, family representatives
+    Observer: Department of Social Services representative
+    
+    Key stakeholders present:
+    - Disability Rights Coalition (advocacy organization)
+    - Parents and Carers Association (support group)
+    - Individual participants: Tom Wilson, Emma Chen, David Kumar
+    - Service providers: Sunshine Coast Disability Services
+    """
+    
+    prompt_template = """
+    Extract stakeholders into JSON-LD format with:
+    1. Proper stakeholder typing (INDIVIDUAL, GROUP, ORGANIZATIONAL)
+    2. Confidence scores for each extraction
+    3. Role descriptions
+    4. Relationship context
+    
+    Document:
+    {document}
+    
+    Use DocEX ontology structure:
+    {{
+      "@context": {{...}},
+      "hasStakeholder": [
+        {{
+          "@type": "Stakeholder",
+          "stakeholderName": "...",
+          "stakeholderRole": "...",
+          "stakeholderType": "INDIVIDUAL|GROUP|ORGANIZATIONAL",
+          "confidenceScore": 0.9
+        }}
+      ],
+      "extractionConfidence": 0.85
+    }}
+    
+    Generate stakeholder-focused JSON-LD:
+    """
+    
+    return self._test_both_models(
+      prompt_template.format(document=test_document),
+      self._validate_stakeholder_jsonld
+    )
+  
+  def _test_both_models(self, prompt: str, validator_func) -> Dict[str, Any]:
+    """Test prompt with both GPT-4o and DeepSeek-V3"""
+    results = {
+      "prompt": prompt[:200] + "..." if len(prompt) > 200 else prompt,
+      "gpt4o_result": {},
+      "deepseek_result": {}
+    }
+    
+    # Test GPT-4o
+    try:
+      gpt4o_response = self.provider._make_request(
+        messages=[{"role": "user", "content": prompt}],
+        model_name="gpt-4o",
+        response_format={"type": "json_object"}
+      )
+      gpt4o_content = gpt4o_response.choices[0].message.content
+      gpt4o_parsed = json.loads(gpt4o_content)
+      
+      results["gpt4o_result"] = {
+        "success": True,
+        "raw_response": gpt4o_content,
+        "parsed_response": gpt4o_parsed,
+        "validation": validator_func(gpt4o_parsed)
+      }
+      
+    except Exception as e:
+      results["gpt4o_result"] = {
+        "success": False,
+        "error": str(e)
+      }
+    
+    # Test DeepSeek-V3
+    try:
+      deepseek_response = self.provider._make_request(
+        messages=[{"role": "user", "content": prompt}],
+        model_name="deepseek-chat",
+        response_format={"type": "json_object"}
+      )
+      deepseek_content = deepseek_response.choices[0].message.content
+      deepseek_parsed = json.loads(deepseek_content)
+      
+      results["deepseek_result"] = {
+        "success": True,
+        "raw_response": deepseek_content,
+        "parsed_response": deepseek_parsed,
+        "validation": validator_func(deepseek_parsed)
+      }
+      
+    except Exception as e:
+      results["deepseek_result"] = {
+        "success": False,
+        "error": str(e)
+      }
+    
+    return results
+  
+  def _validate_basic_jsonld(self, response: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate basic JSON-LD structure"""
+    validation = {
+      "has_context": "@context" in response,
+      "has_id": "@id" in response,
+      "has_type": "@type" in response,
+      "has_title": "title" in response or "docex:title" in response,
+      "is_valid_jsonld": False,
+      "context_valid": False,
+      "overall_valid": False
+    }
+    
+    # Check context validity
+    if validation["has_context"]:
+      context = response["@context"]
+      if isinstance(context, dict) and ("@vocab" in context or "docex" in context):
+        validation["context_valid"] = True
+    
+    # Overall JSON-LD validity
+    validation["is_valid_jsonld"] = (
+      validation["has_context"] and 
+      validation["has_id"] and 
+      validation["has_type"]
+    )
+    
+    validation["overall_valid"] = (
+      validation["is_valid_jsonld"] and 
+      validation["context_valid"] and
+      validation["has_title"]
+    )
+    
+    return validation
+  
+  def _validate_ontology_compliance(self, response: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate compliance with DocEX ontology"""
+    validation = {
+      "uses_docex_namespace": False,
+      "has_stakeholder_structure": False,
+      "proper_property_names": False,
+      "correct_data_types": False,
+      "overall_compliant": False
+    }
+    
+    # Check for docex namespace usage
+    context = response.get("@context", {})
+    if isinstance(context, dict):
+      if "docex" in context or any("docex" in str(v) for v in context.values()):
+        validation["uses_docex_namespace"] = True
+    
+    # Check stakeholder structure
+    if "hasStakeholder" in response or "docex:hasStakeholder" in response:
+      validation["has_stakeholder_structure"] = True
+    
+    # Check property names
+    expected_properties = ["title", "processingDate", "hasStakeholder", "stakeholderName"]
+    found_properties = []
+    for prop in expected_properties:
+      if prop in response or f"docex:{prop}" in response:
+        found_properties.append(prop)
+    
+    validation["proper_property_names"] = len(found_properties) >= 2
+    validation["found_properties"] = found_properties
+    
+    validation["overall_compliant"] = (
+      validation["uses_docex_namespace"] and
+      validation["proper_property_names"]
+    )
+    
+    return validation
+  
+  def _validate_complex_structure(self, response: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate complex document structure with paragraphs"""
+    validation = {
+      "has_paragraph_structure": False,
+      "paragraphs_are_list": False,
+      "paragraph_has_text": False,
+      "nested_stakeholders": False,
+      "confidence_scores": False,
+      "overall_valid": False
+    }
+    
+    # Check paragraph structure
+    paragraphs = response.get("hasParagraph") or response.get("docex:hasParagraph")
+    if paragraphs:
+      validation["has_paragraph_structure"] = True
+      
+      if isinstance(paragraphs, list):
+        validation["paragraphs_are_list"] = True
+        
+        # Check first paragraph structure
+        if paragraphs and isinstance(paragraphs[0], dict):
+          first_para = paragraphs[0]
+          if "paragraphText" in first_para or "docex:paragraphText" in first_para:
+            validation["paragraph_has_text"] = True
+          
+          if "hasStakeholder" in first_para or "docex:hasStakeholder" in first_para:
+            validation["nested_stakeholders"] = True
+    
+    # Check confidence scores
+    if "extractionConfidence" in response or "docex:extractionConfidence" in response:
+      validation["confidence_scores"] = True
+    
+    validation["overall_valid"] = (
+      validation["has_paragraph_structure"] and
+      validation["paragraphs_are_list"] and
+      validation["paragraph_has_text"]
+    )
+    
+    return validation
+  
+  def _validate_semantic_relationships(self, response: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate semantic relationships in JSON-LD"""
+    validation = {
+      "has_relationships": False,
+      "uses_linked_data": False,
+      "relationship_types": [],
+      "proper_references": False,
+      "overall_valid": False
+    }
+    
+    # Look for relationship properties
+    relationship_props = ["reportsTo", "collaboratesWith", "leadBy", "memberOf"]
+    found_relationships = []
+    
+    def check_object_for_relationships(obj):
+      if isinstance(obj, dict):
+        for key, value in obj.items():
+          key_clean = key.replace("docex:", "")
+          if key_clean in relationship_props:
+            found_relationships.append(key_clean)
+          if isinstance(value, (dict, list)):
+            check_object_for_relationships(value)
+      elif isinstance(obj, list):
+        for item in obj:
+          check_object_for_relationships(item)
+    
+    check_object_for_relationships(response)
+    
+    validation["has_relationships"] = len(found_relationships) > 0
+    validation["relationship_types"] = found_relationships
+    
+    # Check for @id references (linked data)
+    def find_id_references(obj):
+      refs = []
+      if isinstance(obj, dict):
+        if "@id" in obj:
+          refs.append(obj["@id"])
+        for value in obj.values():
+          refs.extend(find_id_references(value))
+      elif isinstance(obj, list):
+        for item in obj:
+          refs.extend(find_id_references(item))
+      return refs
+    
+    id_refs = find_id_references(response)
+    validation["uses_linked_data"] = len(id_refs) > 1
+    validation["id_references_count"] = len(id_refs)
+    
+    validation["overall_valid"] = (
+      validation["has_relationships"] and
+      len(found_relationships) >= 2
+    )
+    
+    return validation
+  
+  def _validate_stakeholder_jsonld(self, response: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate stakeholder extraction in JSON-LD format"""
+    validation = {
+      "has_stakeholders": False,
+      "stakeholder_count": 0,
+      "proper_typing": False,
+      "has_confidence_scores": False,
+      "valid_stakeholder_types": False,
+      "overall_valid": False
+    }
+    
+    # Find stakeholders
+    stakeholders = response.get("hasStakeholder") or response.get("docex:hasStakeholder") or []
+    
+    if stakeholders:
+      validation["has_stakeholders"] = True
+      validation["stakeholder_count"] = len(stakeholders)
+      
+      if isinstance(stakeholders, list) and stakeholders:
+        first_stakeholder = stakeholders[0]
+        
+        # Check typing
+        if "@type" in first_stakeholder:
+          validation["proper_typing"] = True
+        
+        # Check confidence scores
+        if any(key in first_stakeholder for key in ["confidenceScore", "docex:confidenceScore"]):
+          validation["has_confidence_scores"] = True
+        
+        # Check stakeholder types
+        valid_types = ["INDIVIDUAL", "GROUP", "ORGANIZATIONAL"]
+        stakeholder_types = []
+        for stakeholder in stakeholders:
+          stype = stakeholder.get("stakeholderType") or stakeholder.get("docex:stakeholderType")
+          if stype in valid_types:
+            stakeholder_types.append(stype)
+        
+        validation["valid_stakeholder_types"] = len(stakeholder_types) > 0
+        validation["found_types"] = list(set(stakeholder_types))
+    
+    validation["overall_valid"] = (
+      validation["has_stakeholders"] and
+      validation["stakeholder_count"] >= 3 and
+      validation["valid_stakeholder_types"]
+    )
+    
+    return validation
+  
+  def generate_recommendation(self, gpt4o_rate: float, deepseek_rate: float) -> str:
+    """Generate recommendation based on test results"""
+    if gpt4o_rate > deepseek_rate + 0.2:
+      return "GPT-4o shows significantly better JSON-LD generation capabilities"
+    elif deepseek_rate > gpt4o_rate + 0.2:
+      return "DeepSeek-V3 shows significantly better JSON-LD generation capabilities"
+    elif gpt4o_rate > 0.8 and deepseek_rate > 0.8:
+      return "Both models perform excellently for JSON-LD generation"
+    elif gpt4o_rate > 0.6 and deepseek_rate > 0.6:
+      return "Both models are adequate for JSON-LD generation with room for improvement"
+    else:
+      return "Neither model meets requirements for reliable JSON-LD generation"
+  
+  def print_summary(self):
+    """Print test summary"""
+    summary = self.test_results["summary"]
+    comparison = self.test_results.get("model_comparison", {})
+    
+    print(f"\n📊 JSON-LD Capability Test Summary:")
+    print(f"   🧪 Total Tests: {summary['total_tests']}")
+    print(f"   🔥 GPT-4o Success Rate: {summary.get('gpt4o_success_rate', 0)*100:.1f}%")
+    print(f"   ⚡ DeepSeek-V3 Success Rate: {summary.get('deepseek_success_rate', 0)*100:.1f}%")
+    print(f"   🏆 Winner: {comparison.get('winner', 'Unknown')}")
+    print(f"   💡 Recommendation: {comparison.get('recommendation', 'No recommendation available')}")
+    print(f"   🎯 Overall: {'PASS' if summary.get('overall_success', False) else 'NEEDS IMPROVEMENT'}")
+  
+  def save_results(self):
+    """Save test results to JSON file"""
+    results_file = os.path.join(
+      os.path.dirname(__file__), 
+      "jsonld_capability_test_results.json"
+    )
+    
+    with open(results_file, 'w', encoding='utf-8') as f:
+      json.dump(self.test_results, f, indent=2, ensure_ascii=False)
+    
+    print(f"\n💾 Results saved to: {results_file}")
+
+def main():
+  """Run the JSON-LD capability tests"""
+  tester = JSONLDCapabilityTester()
+  tester.run_all_tests()
+
+if __name__ == "__main__":
+  main()

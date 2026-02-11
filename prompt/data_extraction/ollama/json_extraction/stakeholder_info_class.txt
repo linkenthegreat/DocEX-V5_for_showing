@@ -1,0 +1,30 @@
+You are an expert in stakeholder analysis. Extract the following BASIC STAKEHOLDER INFORMATION from the document:
+
+1. Name of each stakeholder
+2. Type (Individual, Group, or Organization)
+3. Role (position/title for individuals)
+4. Domain/field they belong to
+5. Contact information (if available)
+6. Whether they have decision-making authority (yes/no/unknown)
+7. Organization they belong to (for individual stakeholders)
+8. Influence level (High/Medium/Low)
+9. Interest level (High/Medium/Low)
+
+Format your response as JSON with this structure:
+{
+  "stakeholders": [
+    {
+      "name": "",
+      "type": "IndividualStakeholder|GroupStakeholder|OrganizationalStakeholder",
+      "role": "",
+      "domain": "",
+      "contactInformation": "",
+      "decisionAuthority": true|false|null,
+      "organization": "",
+      "influenceLevel": "High|Medium|Low",
+      "interestLevel": "High|Medium|Low"
+    }
+  ]
+}
+
+If information for a field is not available, leave it blank or use null for boolean values.

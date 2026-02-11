@@ -1,0 +1,35 @@
+You are an expert in stakeholder analysis. Extract the following PROJECT ENGAGEMENT information from the document for each stakeholder.
+
+Create THREE separate CSV tables:
+
+1. PROJECTS CSV with headers:
+stakeholder_name,related_project
+
+2. RESOURCE CONTRIBUTIONS CSV with headers:
+stakeholder_name,resource_description
+
+3. ENGAGEMENT RECORDS CSV with headers:
+stakeholder_name,engagement_date,engagement_description,engagement_outcome
+
+For projects and resources, use one row per item.
+For engagement records, use one row per record.
+
+Example for PROJECTS:
+stakeholder_name,related_project
+"John Doe","Digital Transformation Initiative"
+"John Doe","Enterprise Data Warehouse"
+"Jane Smith","Customer Portal Redesign"
+
+Example for RESOURCE CONTRIBUTIONS:
+stakeholder_name,resource_description
+"John Doe","Technical expertise in cloud architecture"
+"John Doe","Budget allocation for Q3"
+"Jane Smith","UX design team (3 members)"
+
+Example for ENGAGEMENT RECORDS:
+stakeholder_name,engagement_date,engagement_description,engagement_outcome
+"John Doe","2023-05-15","Project kickoff meeting","Alignment on project objectives"
+"John Doe","2023-06-02","Budget review session","Additional funding approved"
+"Jane Smith","2023-05-20","Requirements workshop","User stories documented"
+
+Format each CSV section with clear separators. Use empty strings for missing information. Do not include additional explanations outside the CSV format.

@@ -1,0 +1,630 @@
+/* 
+ * DocEX Application Styles
+ * Organized CSS with base variables and component styles
+ */
+
+/* 1. CSS Variables */
+:root {
+  /* Color Palette */
+  --bg-main: #666363;
+  --bg-dark: #2a2a2a;
+  --bg-darker: #1a1a1a;
+  --bg-medium: #3a3a3a;
+  --bg-header: #333333;
+  --text-primary: #ffffff;
+  --text-secondary: #f3f3f3;
+  --border-color: #444;
+  --border-light: #635f5f;
+  
+  /* Button Colors */
+  --btn-default: #777777;
+  --btn-primary: #007bff;
+  --btn-primary-hover: #0056b3;
+  --btn-success: #4CAF50;
+  --btn-success-hover: #45a049;
+  --btn-danger: #dc3545;
+  --btn-danger-hover: #c82333;
+  --btn-secondary: #6c757d;
+  --btn-secondary-hover: #5a6268;
+  
+  /* Alert Colors */
+  --success-bg: #d4edda;
+  --success-text: #155724;
+  --error-bg: #f8d7da;
+  --error-text: #721c24;
+  --info-bg: #d1ecf1;
+  --info-text: #0c5460;
+  --warning-bg: #fff3cd;
+  --warning-text: #856404;
+  
+  /* Spacing */
+  --spacing-sm: 5px;
+  --spacing-md: 10px;
+  --spacing-lg: 20px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+/* 2. Base Element Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+header {
+  background-color: var(--bg-header);
+  padding: 10px 0;
+}
+
+main {
+  padding: var(--spacing-lg);
+}
+
+h1, h2, h3 {
+  margin-bottom: var(--spacing-lg);
+}
+
+a:link {
+  color: red;
+}
+
+a:visited {
+  color: rgb(202, 199, 24);
+}
+
+button {
+  background-color: var(--btn-default);
+  color: var(--text-primary);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-sm);
+}
+
+/* 3. Layout Components */
+.container {
+  display: flex;
+  margin-top: var(--spacing-lg);
+}
+
+.left-panel {
+  flex: 1;
+  padding-right: var(--spacing-lg);
+}
+
+.right-panel {
+  flex: 1;
+  border-left: 1px solid var(--border-color);
+  padding-left: var(--spacing-lg);
+}
+
+/* 4. Navigation */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+nav ul li {
+  margin-right: var(--spacing-lg);
+}
+
+nav ul li a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* 5. Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-dark);
+  margin-top: var(--spacing-lg);
+}
+
+th, td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border: 1px solid var(--border-light);
+}
+
+th {
+  background-color: var(--bg-medium);
+}
+
+tr:hover {
+  background-color: var(--bg-medium);
+}
+
+.actions {
+  text-align: center;
+}
+
+/* 6. Button Styles */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--btn-success);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  margin: var(--spacing-sm);
+}
+
+.btn:hover {
+  background-color: var(--btn-success-hover);
+}
+
+.btn-danger {
+  background-color: var(--btn-danger);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: var(--btn-danger-hover);
+}
+
+.search-button {
+  padding: 8px 16px;
+  background-color: var(--btn-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.clear-search {
+  padding: 8px 16px;
+  background-color: var(--btn-secondary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.clear-search:hover {
+  background-color: var(--btn-secondary-hover);
+  text-decoration: none;
+  color: white;
+}
+
+#uploadNewFile {
+  float: right;
+}
+
+#deleteSelectedFiles {
+  margin-top: var(--spacing-lg);
+  float: right;
+}
+
+/* 7. Form Elements */
+.search-container {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+  background-color: #f8f9fa;
+  border-radius: var(--radius-sm);
+}
+
+.search-form {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: var(--radius-sm);
+  background-color: #444;
+  color: white;
+}
+
+/* 8. Notification System */
+.notifications {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  max-width: 300px;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: var(--spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.alert-success {
+  color: var(--success-text);
+  background-color: var(--success-bg);
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  color: var(--error-text);
+  background-color: var(--error-bg);
+  border-color: #f5c6cb;
+}
+
+.alert-info {
+  color: var(--info-text);
+  background-color: var(--info-bg);
+  border-color: #bee5eb;
+}
+
+.alert-warning {
+  color: var(--warning-text);
+  background-color: var(--warning-bg);
+  border-color: #ffeeba;
+}
+
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.message {
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: var(--radius-sm);
+}
+
+.success {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+.error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover {
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 9. Statistics Panel */
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  background-color: var(--bg-dark);
+  border-radius: var(--radius-lg);
+}
+
+.stat-card {
+  background-color: var(--bg-medium);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  color: var(--btn-primary);
+  font-size: 1.1em;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.file-types-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.file-types-list li {
+  padding: 2px 0;
+  font-size: 0.9em;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+.badge-success {
+  background-color: var(--btn-success);
+  color: white;
+}
+
+/* 10. RDF & Triple Management */
+.triples-panel {
+  background-color: var(--bg-dark);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-lg) 0;
+}
+
+.combine-section {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background-color: var(--bg-medium);
+  border-radius: var(--radius-md);
+}
+
+#ttl-content {
+  max-height: 600px;
+  overflow: auto;
+  white-space: pre-wrap;
+  background-color: #554d4d;
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-md);
+}
+
+.query-section {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  background-color: var(--bg-dark);
+  border-radius: var(--radius-lg);
+}
+
+.query-input {
+  width: 100%;
+  min-height: 150px;
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  background-color: var(--bg-darker);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+}
+
+.query-results {
+  margin-top: var(--spacing-lg);
+  overflow-x: auto;
+}
+
+.query-results table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.query-results th, .query-results td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid var(--border-color);
+}
+
+.query-results th {
+  background-color: var(--bg-medium);
+}
+
+.query-form {
+  margin: var(--spacing-lg) 0;
+}
+
+.query-form textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-family: monospace;
+}
+
+.results {
+  margin-top: 30px;
+}
+
+/* 11. Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: var(--bg-dark);
+  margin: 5% auto;
+  padding: var(--spacing-lg);
+  border: 1px solid #555;
+  width: 80%;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: var(--radius-lg);
+}
+
+/* 12. TTL Content View Styles */
+.ttl-view-container {
+  max-width: 90%;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+}
+
+.ttl-title {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.ttl-back-button {
+  margin-bottom: var(--spacing-lg);
+}
+
+.ttl-content-card {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 30px;
+}
+
+.ttl-content-header {
+  background-color: var(--bg-medium);
+  color: var(--text-primary);
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  border-top-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-sm);
+}
+
+.ttl-content-body {
+  padding: var(--spacing-lg);
+}
+
+.ttl-content-display {
+  background-color: var(--bg-darker);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 15px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+/* =============================================================================
+   Dark Theme Enhancements for DocEX Enhanced Interface
+   ============================================================================= */
+
+/* Override body and main container for dark theme consistency */
+body {
+    background-color: #2c1810;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Center alignment sections */
+div[align="center"] {
+    background-color: #3d2517;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #6b4423;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+div[align="center"] h1 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+div[align="center"] a {
+    color: #17a2b8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+div[align="center"] a:hover {
+    color: #20c9e0;
+    text-decoration: underline;
+}
+
+/* Ensure all links maintain consistent styling */
+a {
+    color: #17a2b8;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #20c9e0;
+}
+
+/* Form elements dark theme */
+input[type="checkbox"] {
+    accent-color: #28a745;
+    transform: scale(1.2);
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    background-color: #4a2d1d;
+    border: 2px solid #6b4423;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #8b6914;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 105, 20, 0.3);
+}
+
+/* Button consistency across the application */
+button,
+.btn {
+    font-family: inherit;
+    transition: all 0.3s ease;
+}

@@ -1,0 +1,21 @@
+You are an expert in stakeholder analysis. Extract the following BASIC STAKEHOLDER INFORMATION from the document:
+
+1. Name of each stakeholder
+2. Type (Individual, Group, or Organization)
+3. Role (position/title for individuals)
+4. Domain/field they belong to
+5. Contact information (if available)
+6. Whether they have decision-making authority (yes/no/unknown)
+7. Organization they belong to (for individual stakeholders)
+8. Influence level (High/Medium/Low)
+9. Interest level (High/Medium/Low)
+
+Format your response as a CSV table with the following headers:
+name,type,role,domain,contact_information,decision_authority,organization,influence_level,interest_level
+
+Example:
+name,type,role,domain,contact_information,decision_authority,organization,influence_level,interest_level
+"John Doe","IndividualStakeholder","Project Manager","IT","john@example.com","yes","Acme Corp","High","High"
+"City Council","GroupStakeholder","","Government","council@city.gov","yes","","Medium","Medium"
+
+Use empty strings for missing information. For decision_authority, use "yes", "no", or "unknown". Do not include additional explanations or text outside the CSV format.

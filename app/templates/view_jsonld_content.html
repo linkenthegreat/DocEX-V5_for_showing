@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View JSON-LD Content</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Dark Theme for JSON-LD Content View */
+        body {
+            background-color: #2c1810;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .jsonld-view-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .file-info-panel {
+            background: linear-gradient(135deg, #4a2d1d 0%, #3d2517 100%);
+            border: 2px solid #6b4423;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #8b6914;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-item strong {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .info-item span {
+            color: #d4c4b0;
+        }
+        
+        .content-tabs {
+            display: flex;
+            border-bottom: 2px solid #6b4423;
+            margin-bottom: 20px;
+            gap: 5px;
+            background: #3d2517;
+            border-radius: 8px 8px 0 0;
+            padding: 5px 5px 0 5px;
+        }
+        
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: #2c1810;
+            color: #a08970;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #8b6914 0%, #a08970 100%);
+            color: #ffffff;
+            border-bottom: 2px solid #8b6914;
+        }
+        
+        .tab-button:hover {
+            background: #5a3525;
+            color: #d4c4b0;
+        }
+        
+        .tab-button.active:hover {
+            background: linear-gradient(135deg, #a08970 0%, #8b6914 100%);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+            border: 2px solid #6b4423;
+            border-radius: 0 0 12px 12px;
+            background: linear-gradient(135deg, #3d2517 0%, #4a2d1d 100%);
+            min-height: 400px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .code-display {
+            background: #1a1a1a;
+            border: 1px solid #6b4423;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #d4c4b0;
+            line-height: 1.5;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stakeholders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .stakeholder-card {
+            background: linear-gradient(135deg, #4a2d1d 0%, #3d2517 100%);
+            border: 2px solid #6b4423;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #8b6914;
+        }
+        
+        .stakeholder-card:hover {
+            border-color: #8b6914;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .stakeholder-name {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stakeholder-type {
+            background: linear-gradient(135deg, #8b6914 0%, #a08970 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .stakeholder-details div {
+            margin: 8px 0;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        
+        .stakeholder-details strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .stakeholder-details div:not(strong) {
+            color: #d4c4b0;
+        }
+        
+        .action-buttons {
+            margin: 25px 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #3d2517;
+            border-radius: 8px;
+            border: 1px solid #6b4423;
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); 
+            color: white; 
+        }
+        .btn-success { 
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); 
+            color: white; 
+        }
+        .btn-info { 
+            background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); 
+            color: white; 
+        }
+        .btn-secondary { 
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); 
+            color: white; 
+        }
+        
+        h1, h3, h4 {
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #2c1810;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #6b4423;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b6914;
+        }
+        
+        /* Selection styling */
+        ::selection {
+            background: rgba(139, 105, 20, 0.4);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    {% include 'components/notifications.html' %}
+    
+    <div class="jsonld-view-container">
+        <h1>📄 JSON-LD Content: {{ filename }}</h1>
+        
+        <!-- File Information Panel -->
+        <div class="file-info-panel">
+            <h3>📊 File Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>File Type:</strong>
+                    <span>{{ file_type }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>RDF Triples:</strong>
+                    <span>{{ triple_count }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>Stakeholders:</strong>
+                    <span>{{ stakeholder_count }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>Has Metadata:</strong>
+                    <span>{{ 'Yes' if metadata else 'No' }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="{{ url_for('main.manage_triples') }}" class="btn btn-secondary">
+                ⬅️ Back to RDF Manager
+            </a>
+            {% if has_stakeholders %}
+            <button class="btn btn-info" onclick="openReviewModal('{{ filename }}')">
+                ✏️ Review Stakeholders
+            </button>
+            {% endif %}
+            <button class="btn btn-success" onclick="downloadFile()">
+                💾 Download JSON-LD
+            </button>
+        </div>
+        
+        <!-- Content Tabs -->
+        <div class="content-tabs">
+            {% if has_stakeholders %}
+            <button class="tab-button active" onclick="showTab('stakeholders')">
+                📋 Stakeholders ({{ stakeholder_count }})
+            </button>
+            {% endif %}
+            {% if metadata %}
+            <button class="tab-button {% if not has_stakeholders %}active{% endif %}" onclick="showTab('metadata')">
+                📊 Metadata
+            </button>
+            {% endif %}
+            <button class="tab-button {% if not has_stakeholders and not metadata %}active{% endif %}" onclick="showTab('turtle')">
+                🐢 RDF Turtle
+            </button>
+            <button class="tab-button" onclick="showTab('jsonld')">
+                📄 JSON-LD Source
+            </button>
+        </div>
+        
+        <!-- Stakeholders Tab -->
+        {% if has_stakeholders %}
+        <div id="stakeholdersTab" class="tab-content active">
+            <h4>📋 Extracted Stakeholders</h4>
+            <div class="stakeholders-grid">
+                {% for stakeholder in stakeholders %}
+                <div class="stakeholder-card">
+                    <div class="stakeholder-name">{{ stakeholder.name or 'Unknown' }}</div>
+                    <div class="stakeholder-type">{{ stakeholder.stakeholderType or stakeholder.type or 'Unknown' }}</div>
+                    <div class="stakeholder-details">
+                        <div><strong>Role:</strong> {{ stakeholder.role or 'Not specified' }}</div>
+                        <div><strong>Organization:</strong> {{ stakeholder.organization or 'Not specified' }}</div>
+                        {% if stakeholder.contact %}
+                        <div><strong>Contact:</strong> {{ stakeholder.contact }}</div>
+                        {% endif %}
+                        {% if stakeholder.confidenceScore %}
+                        <div><strong>Confidence:</strong> {{ (stakeholder.confidenceScore * 100)|round }}%</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if stakeholder_count > 5 %}
+            <p style="text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+                Showing first 5 stakeholders. Use Review function to see all {{ stakeholder_count }} stakeholders.
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- Metadata Tab -->
+        {% if metadata %}
+        <div id="metadataTab" class="tab-content {% if not has_stakeholders %}active{% endif %}">
+            <h4>📊 Extraction Metadata</h4>
+            <div class="code-display">{{ metadata|tojson(indent=2) }}</div>
+        </div>
+        {% endif %}
+        
+        <!-- Turtle Tab -->
+        <div id="turtleTab" class="tab-content {% if not has_stakeholders and not metadata %}active{% endif %}">
+            <h4>🐢 RDF Turtle Format</h4>
+            <div class="code-display">{{ content }}</div>
+        </div>
+        
+        <!-- JSON-LD Tab -->
+        <div id="jsonldTab" class="tab-content">
+            <h4>📄 JSON-LD Source</h4>
+            <div class="code-display">{{ jsonld_content }}</div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const targetTab = document.getElementById(tabName + 'Tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+        
+        function downloadFile() {
+            const link = document.createElement('a');
+            link.href = window.location.href.replace('view_jsonld_page', 'download_jsonld');
+            link.download = '{{ filename }}';
+            link.click();
+        }
+        
+        function openReviewModal(filename) {
+            if (typeof window.openDetailedReviewModal === 'function') {
+                window.openDetailedReviewModal(filename);
+            } else {
+                alert('Review system not loaded. Please refresh the page.');
+            }
+        }
+    </script>
+    
+    <!-- Include review system for the review button -->
+    <script src="{{ url_for('static', filename='js/review.js') }}"></script>
+</body>
+</html>

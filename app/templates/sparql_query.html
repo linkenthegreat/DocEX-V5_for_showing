@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SPARQL Query</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% include 'components/notifications.html' %}
+    <div align="center">
+        <h1>SPARQL Query</h1>
+        <a href="{{ url_for('main.manage_triples') }}">Back to Triple Manager</a>
+    </div>
+
+    <div class="query-form">
+        <form action="{{ url_for('main.sparql_query') }}" method="POST">
+            <textarea name="query" rows="10" cols="80" placeholder="Enter your SPARQL query here">{{ query or 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT 10' }}</textarea>
+            <button type="submit">Execute Query</button>
+        </form>
+    </div>
+
+    {% if error %}
+        <div class="error">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+    {% endif %}
+
+    {% if results is not none %}
+        <div class="results">
+            <h2>Query Results ({{ results|length }} rows)</h2>
+            {% if results|length > 0 %}
+                <table border="1">
+                    <thead>
+                        <tr>
+                            {% for header in result_headers %}
+                                <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in results %}
+                            <tr>
+                                {% for header in result_headers %}
+                                    <td>{{ row[header]|default('') }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>The query returned no results.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="debug-info">
+        <!-- Debug section for developers -->
+        {% if query %}
+            <details>
+                <summary>Debug Information</summary>
+                <p><strong>Query:</strong> <pre>{{ query }}</pre></p>
+                {% if result_headers %}
+                    <p><strong>Headers:</strong> {{ result_headers }}</p>
+                {% endif %}
+                {% if results is not none %}
+                    <p><strong>Result Type:</strong> {{ results.__class__.__name__ }}</p>
+                    <p><strong>Result Length:</strong> {{ results|length }}</p>
+                {% endif %}
+            </details>
+        {% endif %}
+    </div>
+</body>
+</html>

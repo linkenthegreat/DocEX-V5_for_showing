@@ -1,0 +1,129 @@
+@prefix docex: <http://example.org/docex/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix content: <http://www.w3.org/2011/content#> .
+
+# Classes
+docex:Document a rdfs:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "A document resource representing a file with structured text content." .
+
+docex:File a rdfs:Class ;
+    rdfs:label "File" ;
+    rdfs:subClassOf docex:Document ;
+    rdfs:comment "A file on the filesystem that contains document content." .
+
+docex:Paragraph a rdfs:Class ;
+    rdfs:label "Paragraph" ;
+    rdfs:comment "A paragraph within a document." .
+
+docex:Sentence a rdfs:Class ;
+    rdfs:label "Sentence" ;
+    rdfs:comment "A sentence within a paragraph." .
+
+# Document metadata properties
+docex:documentID a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range xsd:string ;
+    rdfs:label "Document ID" ;
+    rdfs:comment "Unique identifier for a document." .
+
+docex:path a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range xsd:string ;
+    rdfs:label "File Path" ;
+    rdfs:comment "Path to the document file in the filesystem." .
+
+docex:hash a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range xsd:string ;
+    rdfs:label "Hash" ;
+    rdfs:comment "Hash value of the document for verification and deduplication." .
+
+# Document content properties
+docex:paragraphCount a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Paragraph Count" ;
+    rdfs:comment "Total number of paragraphs in a document." .
+
+docex:sentenceCount a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Sentence Count" ;
+    rdfs:comment "Total number of sentences in a document." .
+
+docex:hasParagraph a rdf:Property ;
+    rdfs:domain docex:Document ;
+    rdfs:range docex:Paragraph ;
+    rdfs:label "Has Paragraph" ;
+    rdfs:comment "Relates a document to its paragraphs." .
+
+# Paragraph properties
+docex:paragraphID a rdf:Property ;
+    rdfs:domain docex:Paragraph ;
+    rdfs:range xsd:string ;
+    rdfs:label "Paragraph ID" ;
+    rdfs:comment "Unique identifier for a paragraph within a document." .
+
+docex:paragraphNumber a rdf:Property ;
+    rdfs:domain docex:Paragraph ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Paragraph Number" ;
+    rdfs:comment "Sequential number of the paragraph within the document." .
+
+docex:paragraphText a rdf:Property ;
+    rdfs:domain docex:Paragraph ;
+    rdfs:range xsd:string ;
+    rdfs:label "Paragraph Text" ;
+    rdfs:comment "The full text content of the paragraph." .
+
+docex:wordCount a rdf:Property ;
+    rdfs:domain docex:Paragraph, docex:Sentence ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Word Count" ;
+    rdfs:comment "Number of words in the paragraph or sentence." .
+
+docex:characterCount a rdf:Property ;
+    rdfs:domain docex:Paragraph, docex:Sentence ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Character Count" ;
+    rdfs:comment "Number of characters in the paragraph or sentence." .
+
+docex:hasSentence a rdf:Property ;
+    rdfs:domain docex:Paragraph ;
+    rdfs:range docex:Sentence ;
+    rdfs:label "Has Sentence" ;
+    rdfs:comment "Relates a paragraph to its sentences." .
+
+# Sentence properties
+docex:sentenceID a rdf:Property ;
+    rdfs:domain docex:Sentence ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sentence ID" ;
+    rdfs:comment "Unique identifier for a sentence within a paragraph." .
+
+docex:sentenceNumber a rdf:Property ;
+    rdfs:domain docex:Sentence ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Sentence Number" ;
+    rdfs:comment "Sequential number of the sentence within the paragraph." .
+
+docex:sentenceText a rdf:Property ;
+    rdfs:domain docex:Sentence ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sentence Text" ;
+    rdfs:comment "The full text content of the sentence." .
+
+# Including Dublin Core Terms that are used
+# These terms are already defined in the dcterms namespace but documenting their use here
+dcterms:created rdfs:comment "Date and time when the document was created." .
+dcterms:modified rdfs:comment "Date and time when the document was last modified." .
+dcterms:extent rdfs:comment "The size of the document in bytes." .
+dcterms:format rdfs:comment "The MIME type of the document." .
+dcterms:title rdfs:comment "The title of the document." .
+
+# Content namespace property
+content:chars rdfs:comment "The full text content of the document." .

@@ -1,0 +1,1026 @@
+{
+  "summary": {
+    "total_tests": 4,
+    "successful_tests": 3,
+    "success_rate": 0.75,
+    "overall_success": true
+  },
+  "test_results": {
+    "gpt4o_jsonld_extraction": {
+      "test": "gpt4o_jsonld_extraction",
+      "model": "gpt-4o",
+      "success": false,
+      "response": {
+        "@type": "StakeholderExtraction",
+        "extractionMetadata": {
+          "@type": "ExtractionMetadata",
+          "extractionConfidence": 0.95,
+          "extractionDate": "2025-01-08",
+          "extractorModel": "stakeholder-extractor-v1"
+        },
+        "stakeholders": [
+          {
+            "@id": "stakeholder:emily-watson",
+            "@type": "Stakeholder",
+            "confidenceScore": 0.95,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Dr. Emily Watson",
+                "context": "Dr. Emily Watson, the Chief Policy Officer, leads the initiative."
+              }
+            ],
+            "name": "Dr. Emily Watson",
+            "role": "Chief Policy Officer",
+            "stakeholderType": "INDIVIDUAL"
+          },
+          {
+            "@id": "stakeholder:implementation-committee",
+            "@type": "Stakeholder",
+            "confidenceScore": 0.9,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "The Implementation Committee",
+                "context": "The Implementation Committee, consisting of 12 members, provides oversight."
+              }
+            ],
+            "name": "Implementation Committee",
+            "role": "Oversight Body",
+            "stakeholderType": "GROUP"
+          },
+          {
+            "@id": "stakeholder:department-social-services",
+            "@type": "Stakeholder",
+            "confidenceScore": 0.9,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "The Department of Social Services",
+                "context": "The Department of Social Services sponsors the project"
+              }
+            ],
+            "name": "Department of Social Services",
+            "role": "Sponsor",
+            "stakeholderType": "ORGANIZATIONAL"
+          },
+          {
+            "@id": "stakeholder:disability-services-australia",
+            "@type": "Stakeholder",
+            "confidenceScore": 0.9,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Disability Services Australia",
+                "context": "Disability Services Australia represents service providers."
+              }
+            ],
+            "name": "Disability Services Australia",
+            "role": "Service Provider Representative",
+            "stakeholderType": "ORGANIZATIONAL"
+          },
+          {
+            "@id": "stakeholder:rights4all-victoria",
+            "@type": "Stakeholder",
+            "confidenceScore": 0.85,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Rights4All Victoria",
+                "context": "Local advocacy groups, including Rights4All Victoria, ensure participant voice is heard."
+              }
+            ],
+            "name": "Rights4All Victoria",
+            "role": "Advocacy Group",
+            "stakeholderType": "GROUP"
+          }
+        ]
+      },
+      "validation": {
+        "has_context": false,
+        "has_type": true,
+        "has_extraction_metadata": true,
+        "has_stakeholders": true,
+        "stakeholders_is_list": true,
+        "stakeholder_count": 5,
+        "stakeholder_has_type": true,
+        "stakeholder_has_id": true,
+        "stakeholder_has_name": true,
+        "stakeholder_has_role": true,
+        "stakeholder_has_type_enum": true,
+        "is_valid_jsonld": false
+      }
+    },
+    "deepseek_jsonld_extraction": {
+      "test": "deepseek_jsonld_extraction",
+      "model": "deepseek/DeepSeek-V3-0324",
+      "success": true,
+      "response": {
+        "@context": {
+          "@vocab": "https://docex.org/vocab/",
+          "stakeholder": "https://docex.org/vocab/stakeholder/",
+          "confidence": "https://docex.org/vocab/confidence/",
+          "role": "https://docex.org/vocab/role/",
+          "type": "https://docex.org/vocab/type/"
+        },
+        "@type": "StakeholderExtraction",
+        "extractionMetadata": {
+          "@type": "ExtractionMetadata",
+          "extractionConfidence": 0.95,
+          "extractionDate": "2025-01-08",
+          "extractorModel": "deepseek/DeepSeek-V3-0324"
+        },
+        "stakeholders": [
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:emily-watson",
+            "name": "Dr. Emily Watson",
+            "role": "Chief Policy Officer",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.98,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Dr. Emily Watson, the Chief Policy Officer",
+                "context": "leads the initiative"
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:implementation-committee",
+            "name": "Implementation Committee",
+            "role": "oversight",
+            "stakeholderType": "GROUP",
+            "confidenceScore": 0.95,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "The Implementation Committee, consisting of 12 members",
+                "context": "provides oversight"
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:department-social-services",
+            "name": "Department of Social Services",
+            "role": "sponsor",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.97,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "The Department of Social Services",
+                "context": "sponsors the project"
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:disability-services-australia",
+            "name": "Disability Services Australia",
+            "role": "service provider representative",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.96,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Disability Services Australia",
+                "context": "represents service providers"
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:rights4all-victoria",
+            "name": "Rights4All Victoria",
+            "role": "advocacy",
+            "stakeholderType": "GROUP",
+            "confidenceScore": 0.94,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Rights4All Victoria",
+                "context": "ensure participant voice is heard"
+              }
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "has_context": true,
+        "has_type": true,
+        "has_extraction_metadata": true,
+        "has_stakeholders": true,
+        "stakeholders_is_list": true,
+        "stakeholder_count": 5,
+        "stakeholder_has_type": true,
+        "stakeholder_has_id": true,
+        "stakeholder_has_name": true,
+        "stakeholder_has_role": true,
+        "stakeholder_has_type_enum": true,
+        "is_valid_jsonld": true
+      }
+    },
+    "complex_document_comparison": {
+      "test": "complex_document_comparison",
+      "success": true,
+      "gpt4o_result": {
+        "validation": {
+          "has_context": true,
+          "has_type": true,
+          "has_extraction_metadata": true,
+          "has_stakeholders": true,
+          "stakeholders_is_list": true,
+          "stakeholder_count": 17,
+          "stakeholder_has_type": true,
+          "stakeholder_has_id": true,
+          "stakeholder_has_name": true,
+          "stakeholder_has_role": true,
+          "stakeholder_has_type_enum": true,
+          "is_valid_jsonld": true
+        },
+        "stakeholder_count": 17,
+        "response": {
+          "@context": {
+            "@vocab": "https://docex.org/vocab/",
+            "stakeholder": "https://docex.org/vocab/stakeholder/",
+            "confidence": "https://docex.org/vocab/confidence/",
+            "role": "https://docex.org/vocab/role/",
+            "type": "https://docex.org/vocab/type/"
+          },
+          "@type": "StakeholderExtraction",
+          "extractionMetadata": {
+            "@type": "ExtractionMetadata",
+            "extractionConfidence": 0.95,
+            "extractionDate": "2025-01-08",
+            "extractorModel": "stakeholder-analysis-v1.0"
+          },
+          "stakeholders": [
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:department-social-services",
+              "name": "Department of Social Services",
+              "role": "Lead agency in government sector",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Department of Social Services",
+                  "context": "Government entities include the Department of Social Services (lead agency)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:rachel-thompson",
+              "name": "Ms. Rachel Thompson",
+              "role": "Secretary of Department of Social Services",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Ms. Rachel Thompson",
+                  "context": "headed by Secretary Ms. Rachel Thompson"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:ndis-quality-safeguards-commission",
+              "name": "NDIS Quality and Safeguards Commission",
+              "role": "Government agency overseeing quality and safeguards",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "NDIS Quality and Safeguards Commission",
+                  "context": "and the NDIS Quality and Safeguards Commission"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:david-chen",
+              "name": "Prof. David Chen",
+              "role": "Commissioner of NDIS Quality and Safeguards Commission",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Prof. David Chen",
+                  "context": "directed by Commissioner Prof. David Chen"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:amanda-foster",
+              "name": "The Hon. Amanda Foster MP",
+              "role": "Minister for Social Services providing political oversight",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "The Hon. Amanda Foster MP",
+                  "context": "Minister for Social Services, The Hon. Amanda Foster MP"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:australian-disability-enterprise-network",
+              "name": "Australian Disability Enterprise Network",
+              "role": "Industry representative",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Australian Disability Enterprise Network",
+                  "context": "Industry representatives encompass the Australian Disability Enterprise Network"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:community-care-providers-association",
+              "name": "Community Care Providers Association",
+              "role": "Industry representative",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Community Care Providers Association",
+                  "context": "Community Care Providers Association"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:enableme-services",
+              "name": "EnableMe Services",
+              "role": "Individual industry provider",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "EnableMe Services",
+                  "context": "individual providers like EnableMe Services"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:michael-obrien",
+              "name": "Michael O'Brien",
+              "role": "CEO of EnableMe Services",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Michael O'Brien",
+                  "context": "(CEO: Michael O'Brien)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:supportive-living-solutions",
+              "name": "Supportive Living Solutions",
+              "role": "Individual industry provider",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Supportive Living Solutions",
+                  "context": "and Supportive Living Solutions"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:disability-advocacy-network-australia",
+              "name": "Disability Advocacy Network Australia",
+              "role": "Participant advocacy organization",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Disability Advocacy Network Australia",
+                  "context": "Disability Advocacy Network Australia (President: Sarah Mitchell)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:sarah-mitchell",
+              "name": "Sarah Mitchell",
+              "role": "President of Disability Advocacy Network Australia",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Sarah Mitchell",
+                  "context": "(President: Sarah Mitchell)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:participant-advisory-committee",
+              "name": "Participant Advisory Committee",
+              "role": "Ensures direct participant input",
+              "stakeholderType": "GROUP",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Participant Advisory Committee",
+                  "context": "The Participant Advisory Committee"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:james-rodriguez",
+              "name": "James Rodriguez",
+              "role": "Co-chair of Participant Advisory Committee",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "James Rodriguez",
+                  "context": "co-chaired by James Rodriguez"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:maria-gonzalez",
+              "name": "Maria Gonzalez",
+              "role": "Co-chair of Participant Advisory Committee",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Maria Gonzalez",
+                  "context": "and Maria Gonzalez"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:university-sydney-disability-research-institute",
+              "name": "University of Sydney's Disability Research Institute",
+              "role": "Research partner providing evidence-based analysis",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "University of Sydney's Disability Research Institute",
+                  "context": "Research partners from the University of Sydney's Disability Research Institute"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:patricia-lee",
+              "name": "Dr. Patricia Lee",
+              "role": "Leader of University of Sydney's Disability Research Institute",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Dr. Patricia Lee",
+                  "context": "led by Dr. Patricia Lee"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "deepseek_result": {
+        "validation": {
+          "has_context": true,
+          "has_type": true,
+          "has_extraction_metadata": true,
+          "has_stakeholders": true,
+          "stakeholders_is_list": true,
+          "stakeholder_count": 17,
+          "stakeholder_has_type": true,
+          "stakeholder_has_id": true,
+          "stakeholder_has_name": true,
+          "stakeholder_has_role": true,
+          "stakeholder_has_type_enum": true,
+          "is_valid_jsonld": true
+        },
+        "stakeholder_count": 17,
+        "response": {
+          "@context": {
+            "@vocab": "https://docex.org/vocab/",
+            "stakeholder": "https://docex.org/vocab/stakeholder/",
+            "confidence": "https://docex.org/vocab/confidence/",
+            "role": "https://docex.org/vocab/role/",
+            "type": "https://docex.org/vocab/type/"
+          },
+          "@type": "StakeholderExtraction",
+          "extractionMetadata": {
+            "@type": "ExtractionMetadata",
+            "extractionConfidence": 0.95,
+            "extractionDate": "2025-01-08",
+            "extractorModel": "expert-stakeholder-analyst-v1.0"
+          },
+          "stakeholders": [
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:department-of-social-services",
+              "name": "Department of Social Services",
+              "role": "Lead agency",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 1.0,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Department of Social Services (lead agency)",
+                  "context": "Government entities include the Department of Social Services (lead agency), headed by Secretary Ms. Rachel Thompson"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:rachel-thompson",
+              "name": "Rachel Thompson",
+              "role": "Secretary",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Ms. Rachel Thompson",
+                  "context": "headed by Secretary Ms. Rachel Thompson"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:ndis-quality-safeguards-commission",
+              "name": "NDIS Quality and Safeguards Commission",
+              "role": "Regulatory body",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 1.0,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "NDIS Quality and Safeguards Commission",
+                  "context": "and the NDIS Quality and Safeguards Commission, directed by Commissioner Prof. David Chen"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:david-chen",
+              "name": "David Chen",
+              "role": "Commissioner",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Prof. David Chen",
+                  "context": "directed by Commissioner Prof. David Chen"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:amanda-foster",
+              "name": "Amanda Foster",
+              "role": "Minister for Social Services",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "The Hon. Amanda Foster MP",
+                  "context": "Minister for Social Services, The Hon. Amanda Foster MP, provides political oversight"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:australian-disability-enterprise-network",
+              "name": "Australian Disability Enterprise Network",
+              "role": "Industry representative",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Australian Disability Enterprise Network",
+                  "context": "Industry representatives encompass the Australian Disability Enterprise Network"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:community-care-providers-association",
+              "name": "Community Care Providers Association",
+              "role": "Industry representative",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Community Care Providers Association",
+                  "context": "Community Care Providers Association, and individual providers like EnableMe Services"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:enableme-services",
+              "name": "EnableMe Services",
+              "role": "Service provider",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "EnableMe Services",
+                  "context": "individual providers like EnableMe Services (CEO: Michael O'Brien)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:michael-obrien",
+              "name": "Michael O'Brien",
+              "role": "CEO",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Michael O'Brien",
+                  "context": "EnableMe Services (CEO: Michael O'Brien)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:supportive-living-solutions",
+              "name": "Supportive Living Solutions",
+              "role": "Service provider",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Supportive Living Solutions",
+                  "context": "and Supportive Living Solutions"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:disability-advocacy-network-australia",
+              "name": "Disability Advocacy Network Australia",
+              "role": "Participant advocacy organization",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Disability Advocacy Network Australia",
+                  "context": "Community stakeholders include participant advocacy organizations such as Disability Advocacy Network Australia (President: Sarah Mitchell)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:sarah-mitchell",
+              "name": "Sarah Mitchell",
+              "role": "President",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Sarah Mitchell",
+                  "context": "Disability Advocacy Network Australia (President: Sarah Mitchell)"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:participant-advisory-committee",
+              "name": "Participant Advisory Committee",
+              "role": "Participant representation",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Participant Advisory Committee",
+                  "context": "The Participant Advisory Committee, co-chaired by James Rodriguez and Maria Gonzalez, ensures direct participant input"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:james-rodriguez",
+              "name": "James Rodriguez",
+              "role": "Co-chair",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "James Rodriguez",
+                  "context": "co-chaired by James Rodriguez and Maria Gonzalez"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:maria-gonzalez",
+              "name": "Maria Gonzalez",
+              "role": "Co-chair",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Maria Gonzalez",
+                  "context": "co-chaired by James Rodriguez and Maria Gonzalez"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:university-of-sydney-disability-research-institute",
+              "name": "University of Sydney's Disability Research Institute",
+              "role": "Research partner",
+              "stakeholderType": "ORGANIZATIONAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "University of Sydney's Disability Research Institute",
+                  "context": "Research partners from the University of Sydney's Disability Research Institute, led by Dr. Patricia Lee"
+                }
+              ]
+            },
+            {
+              "@type": "Stakeholder",
+              "@id": "stakeholder:patricia-lee",
+              "name": "Patricia Lee",
+              "role": "Researcher",
+              "stakeholderType": "INDIVIDUAL",
+              "confidenceScore": 0.95,
+              "mentions": [
+                {
+                  "@type": "Mention",
+                  "text": "Dr. Patricia Lee",
+                  "context": "led by Dr. Patricia Lee, provide evidence-based analysis"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "gpt4o_count": 17,
+        "deepseek_count": 17,
+        "common_stakeholders": [
+          "Department of Social Services",
+          "Sarah Mitchell",
+          "Michael O'Brien",
+          "James Rodriguez",
+          "NDIS Quality and Safeguards Commission",
+          "Australian Disability Enterprise Network",
+          "University of Sydney's Disability Research Institute",
+          "Disability Advocacy Network Australia",
+          "Supportive Living Solutions",
+          "Community Care Providers Association",
+          "Participant Advisory Committee",
+          "Maria Gonzalez",
+          "EnableMe Services"
+        ],
+        "gpt4o_unique": [
+          "Prof. David Chen",
+          "Dr. Patricia Lee",
+          "The Hon. Amanda Foster MP",
+          "Ms. Rachel Thompson"
+        ],
+        "deepseek_unique": [
+          "Patricia Lee",
+          "Amanda Foster",
+          "David Chen",
+          "Rachel Thompson"
+        ],
+        "overlap_percentage": 0.7647058823529411,
+        "jsonld_quality_comparison": {
+          "gpt4o_has_proper_context": true,
+          "deepseek_has_proper_context": true,
+          "gpt4o_has_metadata": true,
+          "deepseek_has_metadata": true
+        }
+      }
+    },
+    "jsonld_semantic_features": {
+      "test": "jsonld_semantic_features",
+      "success": true,
+      "response": {
+        "@context": {
+          "@vocab": "https://docex.org/vocab/",
+          "stakeholder": "https://docex.org/vocab/stakeholder/",
+          "confidence": "https://docex.org/vocab/confidence/",
+          "role": "https://docex.org/vocab/role/",
+          "type": "https://docex.org/vocab/type/",
+          "affiliatedWith": "https://docex.org/vocab/affiliatedWith/",
+          "reportsTo": "https://docex.org/vocab/reportsTo/",
+          "memberOf": "https://docex.org/vocab/memberOf/"
+        },
+        "@type": "StakeholderExtraction",
+        "extractionMetadata": {
+          "@type": "ExtractionMetadata",
+          "extractionConfidence": 0.95,
+          "extractionDate": "2025-01-08",
+          "extractorModel": "stakeholder-extraction-v1"
+        },
+        "stakeholders": [
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:angela-davis",
+            "name": "Prof. Angela Davis",
+            "role": "Chairperson",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.95,
+            "affiliatedWith": "stakeholder:griffith-university",
+            "memberOf": "stakeholder:ndis-review-committee",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Prof. Angela Davis",
+                "context": "The NDIS Review Committee is chaired by Prof. Angela Davis from Griffith University."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:michael-chen",
+            "name": "Dr. Michael Chen",
+            "role": "Disability Researcher",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.9,
+            "memberOf": "stakeholder:ndis-review-committee",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Dr. Michael Chen",
+                "context": "The committee includes Dr. Michael Chen (disability researcher)."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:sarah-williams",
+            "name": "Sarah Williams",
+            "role": "Participant Advocate",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.9,
+            "memberOf": "stakeholder:ndis-review-committee",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Sarah Williams",
+                "context": "The committee includes Sarah Williams (participant advocate)."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:tom-johnson",
+            "name": "Tom Johnson",
+            "role": "Service Provider Representative",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.9,
+            "memberOf": "stakeholder:ndis-review-committee",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Tom Johnson",
+                "context": "The committee includes Tom Johnson representing service providers."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:janet-roberts",
+            "name": "Minister Janet Roberts",
+            "role": "Minister",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.95,
+            "affiliatedWith": "stakeholder:department-of-social-services",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Minister Janet Roberts",
+                "context": "The committee reports to Minister Janet Roberts, who oversees the Department of Social Services."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:amanda-foster",
+            "name": "Secretary Amanda Foster",
+            "role": "Secretary",
+            "stakeholderType": "INDIVIDUAL",
+            "confidenceScore": 0.9,
+            "affiliatedWith": "stakeholder:department-of-social-services",
+            "reportsTo": "stakeholder:janet-roberts",
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Secretary Amanda Foster",
+                "context": "Minister Janet Roberts oversees the Department of Social Services through Secretary Amanda Foster."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:ndis-review-committee",
+            "name": "NDIS Review Committee",
+            "role": "Committee",
+            "stakeholderType": "GROUP",
+            "confidenceScore": 0.95,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "NDIS Review Committee",
+                "context": "The NDIS Review Committee is chaired by Prof. Angela Davis."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:griffith-university",
+            "name": "Griffith University",
+            "role": "University",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.9,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Griffith University",
+                "context": "Prof. Angela Davis from Griffith University."
+              }
+            ]
+          },
+          {
+            "@type": "Stakeholder",
+            "@id": "stakeholder:department-of-social-services",
+            "name": "Department of Social Services",
+            "role": "Government Department",
+            "stakeholderType": "ORGANIZATIONAL",
+            "confidenceScore": 0.95,
+            "mentions": [
+              {
+                "@type": "Mention",
+                "text": "Department of Social Services",
+                "context": "Minister Janet Roberts oversees the Department of Social Services."
+              }
+            ]
+          }
+        ]
+      },
+      "semantic_validation": {
+        "has_id_references": true,
+        "has_relationships": true,
+        "has_mentions": true,
+        "has_context_vocab": true,
+        "proper_namespace_usage": true,
+        "has_semantic_features": true
+      }
+    }
+  },
+  "timestamp": "2025-01-08T10:00:00Z"
+}

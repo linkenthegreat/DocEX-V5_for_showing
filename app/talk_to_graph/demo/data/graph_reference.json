@@ -1,0 +1,40 @@
+{
+  "graph_data": [
+    {
+      "@context": {
+        "@vocab": "http://example.org/vocab#",
+        "name": "http://example.org/vocab#name",
+        "type": "http://example.org/vocab#type",
+        "description": "http://example.org/vocab#description"
+      },
+      "@id": "http://example.org/resource/1",
+      "name": "Accessibility Advocate",
+      "type": "Stakeholder",
+      "description": "Individuals advocating for accessibility in various sectors."
+    },
+    {
+      "@context": {
+        "@vocab": "http://example.org/vocab#",
+        "name": "http://example.org/vocab#name",
+        "type": "http://example.org/vocab#type",
+        "description": "http://example.org/vocab#description"
+      },
+      "@id": "http://example.org/resource/2",
+      "name": "Community Outreach Coordinator",
+      "type": "Stakeholder",
+      "description": "Professionals working to engage communities in various initiatives."
+    },
+    {
+      "@context": {
+        "@vocab": "http://example.org/vocab#",
+        "name": "http://example.org/vocab#name",
+        "type": "http://example.org/vocab#type",
+        "description": "http://example.org/vocab#description"
+      },
+      "@id": "http://example.org/resource/3",
+      "name": "Government Agency",
+      "type": "Stakeholder",
+      "description": "Organizations that operate at the governmental level."
+    }
+  ]
+}

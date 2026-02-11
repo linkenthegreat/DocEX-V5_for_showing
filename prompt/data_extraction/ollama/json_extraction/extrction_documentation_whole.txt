@@ -1,0 +1,65 @@
+You are a specialized document analysis assistant. I need you to extract all stakeholder information from the provided documentation using a specific ontology structure.
+
+Please analyze the text and identify all stakeholders, then extract the following information for each one:
+
+1. STAKEHOLDER BASICS:
+   - Type: [IndividualStakeholder, GroupStakeholder, or OrganizationalStakeholder]
+   - Name
+   - Role (for individuals)
+   - Domain/Field
+   - Contact Information
+   - Decision Authority [true/false]
+
+2. INFLUENCE & INTEREST:
+   - Influence Level [High, Medium, Low]
+   - Interest Level [High, Medium, Low]
+
+3. RELATIONSHIPS:
+   - Belongs to Organization
+   - Supports Issues
+   - Opposes Issues
+   - Collaborates With (other stakeholders)
+   - Reports To (other stakeholders)
+   - Supervises (other stakeholders)
+
+4. ENGAGEMENT:
+   - Communication Preferences
+   - Concerns (with priority levels if available)
+   - Related Projects
+   - Resource Contributions
+   - Engagement Records (date, description, outcome)
+
+5. CONNECTIONS:
+   - Provides Input To (other stakeholders)
+   - Receives Output From (other stakeholders)
+
+Format your response as a JSON array of stakeholder objects. Leave any fields blank if the information is not available in the document.
+
+Example JSON structure:
+{
+  "stakeholders": [
+    {
+      "type": "IndividualStakeholder",
+      "name": "",
+      "role": "",
+      "domain": "",
+      "contactInformation": "",
+      "decisionAuthority": null,
+      "influenceLevel": "",
+      "interestLevel": "",
+      "organization": "",
+      "supports": [""],
+      "opposes": [""],
+      "collaboratesWith": [""],
+      "reportsTo": [""],
+      "supervises": [""],
+      "communicationPreferences": [""],
+      "concerns": [{"description": "", "priorityLevel": null}],
+      "relatedProjects": [""],
+      "resourceContributions": [{"description": ""}],
+      "engagementRecords": [{"date": "", "description": "", "outcome": ""}],
+      "providesInputTo": [""],
+      "receivesOutputFrom": [""]
+    }
+  ]
+}

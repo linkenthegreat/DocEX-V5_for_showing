@@ -1,0 +1,23 @@
+You are an expert in stakeholder analysis. Extract the following COMMUNICATION PREFERENCES and CONCERNS from the document for each stakeholder:
+
+1. Communication preferences (preferred methods/channels)
+2. Concerns (specific issues important to them)
+3. Priority level of each concern (1-5, with 5 being highest priority)
+
+Format your response as JSON with this structure:
+{
+  "stakeholderCommunication": [
+    {
+      "stakeholderName": "",
+      "communicationPreferences": ["method1", "method2"],
+      "concerns": [
+        {
+          "description": "",
+          "priorityLevel": 1-5|null
+        }
+      ]
+    }
+  ]
+}
+
+If information for a field is not available, use an empty array or null for numeric values.

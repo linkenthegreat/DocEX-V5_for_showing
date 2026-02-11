@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Preview: {{ filename }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div align="center">
+        <h1>Preview: {{ filename }}</h1>
+        <pre>{{ content }}</pre>
+        <a href="{{ url_for('main.root') }}">Back to File Manager</a>
+    </div>
+</body>
+</html>

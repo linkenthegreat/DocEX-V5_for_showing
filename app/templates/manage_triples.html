@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage RDF Triples</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% include 'components/notifications.html' %}
+    <div align="center">
+        <h1>Manage RDF Triples</h1>
+        <a href="{{ url_for('main.root') }}">Back to File Manager</a>
+    </div>
+
+    <div class="container">
+        <!-- Since we don't have a right panel anymore, use a different class -->
+        <div class="full-panel">
+            <h2>TTL Files</h2>
+            <form action="{{ url_for('main.combine_ttl_files') }}" method="POST">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Filename</th>
+                            <th>Size</th>
+                            <th>Modified</th>
+                            <th>Triples</th>
+                            <th>LLM Analyzed</th>
+                            <th>User modified</th>  <!-- New column -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in ttl_files %}
+                            <tr>
+                                <td><input type="checkbox" name="selected_ttls" value="{{ file.filename }}"></td>
+                                <td>{{ file.filename }}</td>
+                                <td>{{ file.size }}</td>
+                                <td>{{ file.modified }}</td>
+                                <td>{{ file.triples }}</td>
+                                <td>
+                                    <!-- Placeholder for LLM analysis status -->
+                                    <span class="badge badge-secondary">No</span>
+                                </td>
+                                <td>
+                                    <!-- Placeholder for User modified status -->
+                                    <span class="badge badge-secondary">No</span>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('main.view_ttl_page') }}?filename={{ file.filename }}" class="btn btn-sm btn-primary">View</a>
+                                    <form action="{{ url_for('main.remove_ttl') }}" method="POST" style="display: inline;">
+                                        <input type="hidden" name="filename" value="{{ file.filename }}">
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div style="margin-top: 10px;">
+                    <button type="submit">Combine Selected Files</button>
+                </div>
+            </form>
+            <div style="margin-top: 10px;">
+                <a href="{{ url_for('main.view_combined_graph') }}"><button type="button">View Combined Graph</button></a>
+                <a href="{{ url_for('main.sparql_query') }}"><button type="button">SPARQL Query</button></a>
+                <a href="{{ url_for('main.create_test_graph') }}"><button type="button">Create Test Graph</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
